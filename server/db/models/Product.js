@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const { Module } = require("webpack");
-const db = require("../db");
+const Sequelize = require('sequelize');
+const { Module } = require('webpack');
+const db = require('../db');
 
-const Product = db.define("product", {
+const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -11,7 +11,7 @@ const Product = db.define("product", {
     },
   },
   type: {
-    type: Sequelize.ENUM("milk, white, dark, assorted"),
+    type: Sequelize.ENUM('milk', 'white', 'dark', 'assorted'),
   },
   price: {
     type: Sequelize.FLOAT,

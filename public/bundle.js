@@ -2366,6 +2366,61 @@ const history =  false ? 0 : (0,history__WEBPACK_IMPORTED_MODULE_0__.createBrows
 
 /***/ }),
 
+/***/ "./client/store/allProducts.js":
+/*!*************************************!*\
+  !*** ./client/store/allProducts.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getProducts": () => (/* binding */ getProducts),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+ //---------ACTION CONSTANT
+
+const GET_PRODUCTS = 'GET_PRODUCTS'; //---------ACTION CREATORS
+
+const _getProducts = products => {
+  return {
+    type: GET_PRODUCTS,
+    products
+  };
+}; //---------THUNK
+
+
+const getProducts = () => {
+  return async dispatch => {
+    try {
+      const {
+        data: products
+      } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/products');
+      dispatch(_getProducts(products));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}; //---------REDUCER
+
+const initialState = [];
+
+const productsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_PRODUCTS:
+      return action.products;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (productsReducer);
+
+/***/ }),
+
 /***/ "./client/store/auth.js":
 /*!******************************!*\
   !*** ./client/store/auth.js ***!
@@ -2468,24 +2523,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "logout": () => (/* reexport safe */ _auth__WEBPACK_IMPORTED_MODULE_2__.logout),
 /* harmony export */   "me": () => (/* reexport safe */ _auth__WEBPACK_IMPORTED_MODULE_2__.me)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var redux_logger__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-logger */ "./node_modules/redux-logger/dist/redux-logger.js");
 /* harmony import */ var redux_logger__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux_logger__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
+/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth */ "./client/store/auth.js");
+/* harmony import */ var _allProducts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./allProducts */ "./client/store/allProducts.js");
 
 
 
 
 
-const reducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
-  auth: _auth__WEBPACK_IMPORTED_MODULE_2__["default"]
+
+const reducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
+  auth: _auth__WEBPACK_IMPORTED_MODULE_2__["default"],
+  products: _allProducts__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
-const middleware = (0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__.composeWithDevTools)((0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"], (0,redux_logger__WEBPACK_IMPORTED_MODULE_0__.createLogger)({
+const middleware = (0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__.composeWithDevTools)((0,redux__WEBPACK_IMPORTED_MODULE_4__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_5__["default"], (0,redux_logger__WEBPACK_IMPORTED_MODULE_0__.createLogger)({
   collapsed: true
 })));
-const store = (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(reducer, middleware);
+const store = (0,redux__WEBPACK_IMPORTED_MODULE_4__.createStore)(reducer, middleware);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
 
 
