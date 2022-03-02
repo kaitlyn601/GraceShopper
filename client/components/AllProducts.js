@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getProducts, deleteProduct } from "../store/allProducts";
 
 class AllProducts extends React.Component {
@@ -33,9 +34,12 @@ class AllProducts extends React.Component {
         {products.map((product) => {
           return (
             <div key={product.id}>
-              <h3>
-                {product.name} Only Costs {product.price} !
-              </h3>
+              <Link to={`/products/${product.id}`}>
+                {product.name}
+                Price {product.price}
+                <img src={product.imageURL} />
+              </Link>
+
               {this.props.isAdmin ? (
                 <button
                   type="button"
@@ -46,7 +50,6 @@ class AllProducts extends React.Component {
               ) : (
                 <div></div>
               )}
-              <img src={product.imageURL} />
             </div>
           );
         })}
