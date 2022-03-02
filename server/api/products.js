@@ -24,3 +24,14 @@ router.get("/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+// DELETE /api/products/:id
+router.delete("/:id", async (req, res, next) => {
+  try {
+    let productId = req.params.id;
+    const deletedProduct = await Product.destroy({ where: { id: productId } });
+    res.send(deletedProduct);
+  } catch (error) {
+    next(error);
+  }
+});

@@ -2118,6 +2118,9 @@ class Routes extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       isLoggedIn
     } = this.props;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, isLoggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+      path: "/all",
+      component: _components_AllProducts__WEBPACK_IMPORTED_MODULE_5__["default"]
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
       path: "/home",
       component: _components_Home__WEBPACK_IMPORTED_MODULE_3__["default"]
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Redirect, {
@@ -2186,7 +2189,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AllProducts extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+  constructor() {
+    super();
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
   componentDidMount() {
+    this.props.loadAllProducts();
+  }
+
+  async handleDelete(id) {
+    await this.props.deleteProduct(id);
     this.props.loadAllProducts();
   }
 
@@ -2205,7 +2218,10 @@ class AllProducts extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, products.map(product => {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           key: product.id
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.name, " Only Costs ", product.price, " !"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.name, " Only Costs ", product.price, " !"), this.props.isAdmin ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          type: "button",
+          onClick: () => this.handleDelete(product.id)
+        }, "Delete") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
           src: product.imageURL
         }));
       }))
@@ -2216,15 +2232,17 @@ class AllProducts extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
 const mapState = state => {
   return {
-    products: state.products // isAdmin: state.auth.isAdmin,
-    // need to add an attribute called 'isAdmin' to our User model. type must be BOOL. then we can use props.isAdmin to conditionally render AddForm and Delete button
+    products: state.products,
+    isAdmin: state.auth.isAdmin // added an attribute called 'isAdmin' to our User model. type is BOOL.
+    // props.isAdmin conditionally renders AddForm and Delete button
 
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    loadAllProducts: () => dispatch((0,_store_allProducts__WEBPACK_IMPORTED_MODULE_2__.getProducts)())
+    loadAllProducts: () => dispatch((0,_store_allProducts__WEBPACK_IMPORTED_MODULE_2__.getProducts)()),
+    deleteProduct: id => dispatch((0,_store_allProducts__WEBPACK_IMPORTED_MODULE_2__.deleteProduct)(id))
   };
 };
 
@@ -2385,11 +2403,15 @@ const Navbar = ({
   handleClick,
   isLoggedIn
 }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "FS-App-Template"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", null, isLoggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+  to: "/all"
+}, "All Products"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
   to: "/home"
 }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
   href: "#",
   onClick: handleClick
 }, "Logout")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+  to: "/all"
+}, "All Products"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
   to: "/login"
 }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
   to: "/signup"
@@ -2446,18 +2468,27 @@ const history =  false ? 0 : (0,history__WEBPACK_IMPORTED_MODULE_0__.createBrows
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getProducts": () => (/* binding */ getProducts),
+/* harmony export */   "deleteProduct": () => (/* binding */ deleteProduct),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
  //---------ACTION CONSTANT
 
-const GET_PRODUCTS = 'GET_PRODUCTS'; //---------ACTION CREATORS
+const GET_PRODUCTS = "GET_PRODUCTS";
+const DELETED_PRODUCT = "DELETED_PRODUCT"; //---------ACTION CREATORS
 
 const _getProducts = products => {
   return {
     type: GET_PRODUCTS,
     products
+  };
+};
+
+const _deletedProduct = product => {
+  return {
+    type: DELETED_PRODUCT,
+    product
   };
 }; //---------THUNK
 
@@ -2467,10 +2498,22 @@ const getProducts = () => {
     try {
       const {
         data: products
-      } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/products');
+      } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/products");
       dispatch(_getProducts(products));
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+const deleteProduct = productId => {
+  return async dispatch => {
+    try {
+      const {
+        data
+      } = await axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](`/api/products/${productId}`);
+      dispatch(_deletedProduct(data));
+    } catch (error) {
+      console.log("error deleting product from the DB", error);
     }
   };
 }; //---------REDUCER
@@ -2481,6 +2524,12 @@ const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products;
+
+    case DELETED_PRODUCT:
+      {
+        const updatedProducts = state.filter(product => product.id !== action.product.id);
+        return updatedProducts;
+      }
 
     default:
       return state;
