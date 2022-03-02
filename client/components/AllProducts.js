@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getProducts } from "../store/allProducts";
+import AddProduct from "./AddProduct";
 
 class AllProducts extends React.Component {
   componentDidMount() {
@@ -33,7 +34,7 @@ class AllProducts extends React.Component {
           );
         })}
         {/* if user type is Admin, then also render AddProductForm Component : */}
-        {/* {isAdmin ? </AddProductForm> : <div></div>} */}
+        {this.props.isAdmin ? <AddProduct /> : <div></div>}
       </div>
     );
   }
