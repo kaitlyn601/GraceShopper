@@ -2180,6 +2180,111 @@ const mapDispatch = dispatch => {
 
 /***/ }),
 
+/***/ "./client/components/AddProduct.js":
+/*!*****************************************!*\
+  !*** ./client/components/AddProduct.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _store_allProducts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/allProducts */ "./client/store/allProducts.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+
+class AddProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: "",
+      type: "milk",
+      price: 0.0,
+      quantity: 1,
+      description: "",
+      imageURL: ""
+    };
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.addProduct({ ...this.state
+    });
+  }
+
+  render() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Add New Product Form: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+      id: "addproduct-form",
+      onSubmit: e => this.handleSubmit(e)
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "name"
+    }, " Product Name: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "name",
+      onChange: e => this.handleChange(e),
+      value: this.state.name
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "type"
+    }, " Product Type: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "type",
+      onChange: e => this.handleChange(e),
+      value: this.state.type
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "price"
+    }, " Price: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "price",
+      onChange: e => this.handleChange(e),
+      value: this.state.price
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "name"
+    }, " Quantity: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "quantity",
+      onChange: e => this.handleChange(e),
+      value: this.state.quantity
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "name"
+    }, " Description: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "description",
+      onChange: e => this.handleChange(e),
+      value: this.state.description
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "name"
+    }, " imageURL: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "imageURL",
+      onChange: e => this.handleChange(e),
+      value: this.state.imageURL
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "submit",
+      value: "Add Product"
+    })));
+  }
+
+}
+
+const mapDispatch = dispatch => ({
+  addProduct: addProduct => dispatch((0,_store_allProducts__WEBPACK_IMPORTED_MODULE_1__.addProductThunk)(addProduct))
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(null, mapDispatch)(AddProduct));
+
+/***/ }),
+
 /***/ "./client/components/AllProducts.js":
 /*!******************************************!*\
   !*** ./client/components/AllProducts.js ***!
@@ -2193,8 +2298,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _store_allProducts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/allProducts */ "./client/store/allProducts.js");
+/* harmony import */ var _AddProduct__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddProduct */ "./client/components/AddProduct.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _store_allProducts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/allProducts */ "./client/store/allProducts.js");
+
 
 
 
@@ -2230,15 +2337,15 @@ class AllProducts extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, products.map(product => {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           key: product.id
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
           to: `/products/${product.id}`
-        }, product.name, "Price ", product.price, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        }, product.name, " Price ", product.price, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
           src: product.imageURL
         })), this.props.isAdmin ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           type: "button",
           onClick: () => this.handleDelete(product.id)
         }, "Delete") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null));
-      }))
+      }), this.props.isAdmin ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AddProduct__WEBPACK_IMPORTED_MODULE_2__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null))
     );
   }
 
@@ -2255,8 +2362,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadAllProducts: () => dispatch((0,_store_allProducts__WEBPACK_IMPORTED_MODULE_2__.getProducts)()),
-    deleteProduct: id => dispatch((0,_store_allProducts__WEBPACK_IMPORTED_MODULE_2__.deleteProduct)(id))
+    loadAllProducts: () => dispatch((0,_store_allProducts__WEBPACK_IMPORTED_MODULE_3__.getProducts)()),
+    deleteProduct: id => dispatch((0,_store_allProducts__WEBPACK_IMPORTED_MODULE_3__.deleteProduct)(id))
   };
 };
 
@@ -2350,6 +2457,114 @@ const mapDispatch = dispatch => {
 
 const Login = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapLogin, mapDispatch)(AuthForm);
 const Signup = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapSignup, mapDispatch)(AuthForm);
+
+/***/ }),
+
+/***/ "./client/components/EditProduct.js":
+/*!******************************************!*\
+  !*** ./client/components/EditProduct.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EditProject": () => (/* binding */ EditProject),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_allProducts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/allProducts */ "./client/store/allProducts.js");
+
+
+
+class EditProject extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.currentProduct;
+  }
+
+  componentDidUpdate() {
+    if (this.state.id !== this.props.currentProduct.id) {
+      this.setState({ ...this.props.currentProduct
+      });
+    }
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.editProduct(this.state);
+  }
+
+  render() {
+    const {
+      currentProduct: product
+    } = this.props;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Edit This Product \"", product.name, "\":"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+      id: "edit-product-form",
+      onSubmit: e => this.handleSubmit(e)
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "name"
+    }, " Name: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      name: "name",
+      value: this.state.name,
+      onChange: e => this.handleChange(e)
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "type"
+    }, " Product Type: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "type",
+      onChange: e => this.handleChange(e),
+      value: this.state.type
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "price"
+    }, " Price: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "price",
+      onChange: e => this.handleChange(e),
+      value: this.state.price
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "name"
+    }, " Quantity: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "quantity",
+      onChange: e => this.handleChange(e),
+      value: this.state.quantity
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "name"
+    }, " Description: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "description",
+      onChange: e => this.handleChange(e),
+      value: this.state.description
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+      htmlFor: "name"
+    }, " imageURL: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "text",
+      name: "imageURL",
+      onChange: e => this.handleChange(e),
+      value: this.state.imageURL
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "submit",
+      value: "Edit Product"
+    })));
+  }
+
+}
+
+const mapDispatch = dispatch => {
+  return {
+    editProduct: product => dispatch((0,_store_allProducts__WEBPACK_IMPORTED_MODULE_2__.editProductThunk)(product))
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatch)(EditProject));
 
 /***/ }),
 
@@ -2468,6 +2683,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_product__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/product */ "./client/store/product.js");
+/* harmony import */ var _EditProduct__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EditProduct */ "./client/components/EditProduct.js");
+
 
 
 
@@ -2497,14 +2714,17 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       min: "0"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "+")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "ADD TO CART"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "description-container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "DESCRIPTION")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, product.description))));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "DESCRIPTION")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, product.description))), this.props.isAdmin ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_EditProduct__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      currentProduct: this.props.product
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null));
   }
 
 }
 
 const mapState = state => {
   return {
-    product: state.product
+    product: state.product,
+    isAdmin: state.auth.isAdmin
   };
 };
 
@@ -2546,14 +2766,20 @@ const history =  false ? 0 : (0,history__WEBPACK_IMPORTED_MODULE_0__.createBrows
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getProducts": () => (/* binding */ getProducts),
+/* harmony export */   "addProductThunk": () => (/* binding */ addProductThunk),
+/* harmony export */   "editProductThunk": () => (/* binding */ editProductThunk),
 /* harmony export */   "deleteProduct": () => (/* binding */ deleteProduct),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _product__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./product */ "./client/store/product.js");
+
  //---------ACTION CONSTANT
 
 const GET_PRODUCTS = "GET_PRODUCTS";
+const EDIT_PRODUCT = "EDIT_PRODUCTS";
+const ADD_PRODUCT = "ADD_PRODUCT";
 const DELETED_PRODUCT = "DELETED_PRODUCT"; //---------ACTION CREATORS
 
 const _getProducts = products => {
@@ -2562,6 +2788,16 @@ const _getProducts = products => {
     products
   };
 };
+
+const _addProduct = product => ({
+  type: ADD_PRODUCT,
+  product
+});
+
+const _editProduct = product => ({
+  type: EDIT_PRODUCT,
+  product
+});
 
 const _deletedProduct = product => {
   return {
@@ -2583,6 +2819,19 @@ const getProducts = () => {
     }
   };
 };
+const addProductThunk = product => async dispatch => {
+  const {
+    data: created
+  } = await axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/products", product);
+  dispatch(_addProduct(created));
+};
+const editProductThunk = product => async dispatch => {
+  const {
+    data: edit
+  } = await axios__WEBPACK_IMPORTED_MODULE_0___default().put(`/api/products/${product.id}`, product);
+  dispatch(_editProduct(edit));
+  dispatch((0,_product__WEBPACK_IMPORTED_MODULE_1__.getProduct)(product.id));
+};
 const deleteProduct = productId => {
   return async dispatch => {
     try {
@@ -2602,6 +2851,18 @@ const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products;
+
+    case ADD_PRODUCT:
+      return [...state, action.product];
+
+    case EDIT_PRODUCT:
+      return state.map(product => {
+        if (product.id === action.product.id) {
+          return action.product;
+        } else {
+          return product;
+        }
+      });
 
     case DELETED_PRODUCT:
       {

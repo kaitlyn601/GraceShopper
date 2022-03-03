@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getProduct } from "../store/product";
+import EditProduct from "./EditProduct";
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -36,6 +37,11 @@ class SingleProduct extends React.Component {
             <p>{product.description}</p>
           </div>
         </div>
+        {this.props.isAdmin ? (
+          <EditProduct currentProduct={this.props.product} />
+        ) : (
+          <div></div>
+        )}
       </div>
     );
   }
@@ -44,6 +50,7 @@ class SingleProduct extends React.Component {
 const mapState = (state) => {
   return {
     product: state.product,
+    isAdmin: state.auth.isAdmin,
   };
 };
 

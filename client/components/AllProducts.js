@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import AddProduct from "./AddProduct";
 import { Link } from "react-router-dom";
 import { getProducts, deleteProduct } from "../store/allProducts";
 
@@ -35,8 +36,7 @@ class AllProducts extends React.Component {
           return (
             <div key={product.id}>
               <Link to={`/products/${product.id}`}>
-                {product.name}
-                Price {product.price}
+                {product.name} Price {product.price}
                 <img src={product.imageURL} />
               </Link>
 
@@ -54,7 +54,7 @@ class AllProducts extends React.Component {
           );
         })}
         {/* if user type is Admin, then also render AddProductForm Component : */}
-        {/* {isAdmin ? </AddProductForm> : <div></div>} */}
+        {this.props.isAdmin ? <AddProduct /> : <div></div>}
       </div>
     );
   }
