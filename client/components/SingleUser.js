@@ -12,7 +12,7 @@ class SingleUser extends React.Component {
     return (
       <div>
         <h3>Username {user.username}</h3>
-        <h3>isAdmin{user.isAdmin}</h3>
+        <h3>User Type: {user.isAdmin ? "Admin" : "User"}</h3>
       </div>
     );
   }

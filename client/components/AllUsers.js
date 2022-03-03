@@ -17,9 +17,9 @@ class AllUsers extends React.Component {
           : users.map((user) => {
               return (
                 <div key={user.id}>
-                  <Link to={`/products/${user.id}`}>
-                    <h3>Username {user.username}</h3>
-                    <h3>isAdmin{user.isAdmin}</h3>
+                  <Link to={`/users/${user.id}`}>
+                    <h3>Username: {user.username}</h3>
+                    <h3>User Type: {user.isAdmin ? "Admin" : "User"}</h3>
                   </Link>
                 </div>
               );
