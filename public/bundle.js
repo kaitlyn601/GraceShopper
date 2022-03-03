@@ -2787,7 +2787,10 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       isLoggedIn
     } = this.props;
 
-    if (isLoggedIn) {// USE CART ON STATE
+    if (isLoggedIn) {
+      // USE CART ON STATE
+      window.localStorage.removeItem("cart");
+      console.log(cart);
     } else {
       // USE LOCAL STORAGE
       let orderItemObj = {

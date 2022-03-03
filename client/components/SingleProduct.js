@@ -20,6 +20,8 @@ class SingleProduct extends React.Component {
     const { isLoggedIn } = this.props;
     if (isLoggedIn) {
       // USE CART ON STATE
+      window.localStorage.removeItem("cart");
+      console.log(cart);
     } else {
       // USE LOCAL STORAGE
       let orderItemObj = {
