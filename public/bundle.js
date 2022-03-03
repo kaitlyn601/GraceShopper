@@ -2832,8 +2832,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_product__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/product */ "./client/store/product.js");
 /* harmony import */ var _EditProduct__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EditProduct */ "./client/components/EditProduct.js");
+/* harmony import */ var _store_cart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/cart */ "./client/store/cart.js");
 
 
+
+ // added on branch feature/add-to-cart-button :
 
 
 
@@ -2845,11 +2848,61 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     };
     this.IncrementItem = this.IncrementItem.bind(this);
     this.DecrementItem = this.DecrementItem.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
   }
 
   componentDidMount() {
     this.props.loadSingleProduct(this.props.match.params.id);
   }
+
+  handleAddToCart() {
+    const {
+      product
+    } = this.props;
+    const {
+      cart
+    } = this.props;
+    const {
+      isLoggedIn
+    } = this.props;
+
+    if (isLoggedIn) {
+      // USE CART ON STATE
+      window.localStorage.removeItem("cart");
+      console.log(cart);
+    } else {
+      // USE LOCAL STORAGE
+      let orderItemObj = {
+        price: product.price,
+        quantity: this.state.quantity,
+        productId: product.id // orderId:  No orderId until user account (and a cart) are created in DB
+        // id:  an id property will be created by Sequelize automatically, when order-item is instantiated in DB via "OrderItem.create()"
+
+      };
+      let guestCartArray;
+      let guestCart = window.localStorage.getItem("cart");
+
+      if (guestCart) {
+        console.log("we do have a cart", guestCart);
+        guestCartArray = JSON.parse(guestCart);
+      } else {
+        guestCartArray = [];
+      }
+
+      guestCartArray.push(orderItemObj);
+      let stringifiedCartArray = JSON.stringify(guestCartArray);
+      window.localStorage.setItem("cart", stringifiedCartArray);
+    }
+  } // if user is logged in (isLoggedIn), then the add-to-cart handler
+  // will add the items to the cart on state (an array)
+  // if user is NOT logged in, instead handler will add items to local storage
+  // this entails:
+  // IF USER IS LOGGED IN  (isLoggedIn), then the add-to-cart handler will:
+  // build up a similar object (same shape)
+  // except its property .orderId will be this.props.state.cart.id
+  // and instead of adding this orderItemObject to an array that gets stringified and stored in localStorage,
+  // we'll use a THUNK to create instance of OrderItem in DB, using this object, and also update Redux store
+
 
   IncrementItem() {
     this.setState({
@@ -2880,11 +2933,12 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       className: "info-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, product.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, product.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Quantity"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       onClick: this.DecrementItem
-    }, "-"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-      value: this.state.quantity
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    }, "-"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, " ", this.state.quantity, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       onClick: this.IncrementItem
-    }, "+")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "ADD TO CART"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    }, "+")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      type: "button",
+      onClick: this.handleAddToCart
+    }, "ADD TO CART"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "description-container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "DESCRIPTION")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, product.description))), this.props.isAdmin ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_EditProduct__WEBPACK_IMPORTED_MODULE_3__["default"], {
       currentProduct: this.props.product
@@ -2896,13 +2950,19 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 const mapState = state => {
   return {
     product: state.product,
-    isAdmin: state.auth.isAdmin
+    isAdmin: state.auth.isAdmin,
+    // added on branch feature/add-to-cart-button :
+    isLoggedIn: !!state.auth.id,
+    userId: state.auth.id,
+    cart: state.cart
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    loadSingleProduct: id => dispatch((0,_store_product__WEBPACK_IMPORTED_MODULE_2__.getProduct)(id))
+    loadSingleProduct: id => dispatch((0,_store_product__WEBPACK_IMPORTED_MODULE_2__.getProduct)(id)),
+    // added on branch feature/add-to-cart-button :
+    getCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_4__.getCart)(id))
   };
 };
 
