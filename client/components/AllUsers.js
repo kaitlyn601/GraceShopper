@@ -4,28 +4,26 @@ import { Link } from "react-router-dom";
 import { getUsers } from "../store/allUser";
 
 class AllUsers extends React.Component {
-  constructor() {
-    super();
-  }
   componentDidMount() {
     this.props.loadAllUsers();
   }
 
   render() {
     const { users } = this.props;
-    if (!users.length) return <div>Loading</div>;
     return (
       <div>
-        {users.map((user) => {
-          return (
-            <div key={user.id}>
-              <Link to={`/products/${user.id}`}>
-                <h3>Username {user.username}</h3>
-                <h3>isAdmin{user.isAdmin}</h3>
-              </Link>
-            </div>
-          );
-        })}
+        {this.props.users.length < 1
+          ? "There are currently no users"
+          : users.map((user) => {
+              return (
+                <div key={user.id}>
+                  <Link to={`/products/${user.id}`}>
+                    <h3>Username {user.username}</h3>
+                    <h3>isAdmin{user.isAdmin}</h3>
+                  </Link>
+                </div>
+              );
+            })}
       </div>
     );
   }
