@@ -4,9 +4,25 @@ import { getProduct } from "../store/product";
 import EditProduct from "./EditProduct";
 
 class SingleProduct extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quantity: 1,
+    };
+    this.IncrementItem = this.IncrementItem.bind(this);
+    this.DecrementItem = this.DecrementItem.bind(this);
+  }
   componentDidMount() {
     this.props.loadSingleProduct(this.props.match.params.id);
   }
+  IncrementItem() {
+    this.setState({ quantity: this.state.quantity + 1 });
+  }
+  DecrementItem() {
+    if (this.state.quantity > 1)
+      this.setState({ quantity: this.state.quantity - 1 });
+  }
+
   render() {
     const { product } = this.props;
     if (!product.id) return <div>Loading</div>;
@@ -21,9 +37,9 @@ class SingleProduct extends React.Component {
             <h2>{product.price}</h2>
             <div>
               <label>Quantity</label>
-              <button>-</button>
-              <input type="number" min="0"></input>
-              <button>+</button>
+              <button onClick={this.DecrementItem}>-</button>
+              <input value={this.state.quantity} />
+              <button onClick={this.IncrementItem}>+</button>
             </div>
 
             <button>ADD TO CART</button>
