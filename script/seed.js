@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
 const {
   db,
   models: { User, Product, Order, OrderItem },
-} = require("../server/db");
+} = require('../server/db');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -11,50 +11,52 @@ const {
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log("db synced!");
+  console.log('db synced!');
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: "cody", password: "123", isAdmin: true }),
-    User.create({ username: "murphy", password: "123" }),
+    User.create({ username: 'cody', password: '123', isAdmin: true }),
+    User.create({ username: 'murphy', password: '123' }),
   ]);
 
   const products = await Promise.all([
     Product.create({
-      name: "Milk Chocolate",
-      type: "milk",
+      name: 'Milk Chocolate',
+      type: 'milk',
       price: 9999,
       quantity: 10,
-      description: "A delicious bar of milk chocolate",
+      description: 'A delicious bar of milk chocolate',
       imageURL:
-        "https://www.godiva.com/dw/image/v2/AAKG_PRD/on/demandware.static/-/Sites-godiva-master-catalog-us/default/dw14f6ca41/13942-1-resize.jpg?sw=250&sh=250",
+        'https://www.godiva.com/dw/image/v2/AAKG_PRD/on/demandware.static/-/Sites-godiva-master-catalog-us/default/dw14f6ca41/13942-1-resize.jpg?sw=250&sh=250',
     }),
     Product.create({
-      name: "Dark Chocolate",
-      type: "dark",
+      name: 'Dark Chocolate',
+      type: 'dark',
       price: 9999,
       quantity: 10,
-      description: "A delicious bar of dark chocolate",
+      description: 'A delicious bar of dark chocolate',
       imageURL:
-        "https://www.godiva.com/dw/image/v2/AAKG_PRD/on/demandware.static/-/Sites-godiva-master-catalog-us/default/dwf120f0db/13938-1-resize.jpg?sw=250&sh=250",
+        'https://www.godiva.com/dw/image/v2/AAKG_PRD/on/demandware.static/-/Sites-godiva-master-catalog-us/default/dwf120f0db/13938-1-resize.jpg?sw=250&sh=250',
     }),
     Product.create({
-      name: "White Chocolate",
-      type: "white",
+      name: 'White Chocolate',
+      type: 'white',
       price: 9999,
       quantity: 10,
-      description: "A delicious bar of white chocolate",
+      description: 'A delicious bar of white chocolate',
       imageURL:
-        "https://www.godiva.com/dw/image/v2/AAKG_PRD/on/demandware.static/-/Sites-godiva-master-catalog-us/default/dw6cc41d0e/14223-1.jpg?sw=250&sh=250",
+        'https://www.godiva.com/dw/image/v2/AAKG_PRD/on/demandware.static/-/Sites-godiva-master-catalog-us/default/dw6cc41d0e/14223-1.jpg?sw=250&sh=250',
     }),
   ]);
 
   const orders = await Promise.all([
     Order.create({
       userId: 1,
+      fulfilled: true,
     }),
     Order.create({
       userId: 2,
+      fulfilled: true,
     }),
   ]);
 
@@ -102,16 +104,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log("seeding...");
+  console.log('seeding...');
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log("closing db connection");
+    console.log('closing db connection');
     await db.close();
-    console.log("db connection closed");
+    console.log('db connection closed');
   }
 }
 
