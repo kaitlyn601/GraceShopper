@@ -15,21 +15,23 @@ class Cart extends React.Component {
     let renderedDiv;
     const { cart, userId } = this.props;
     if (userId) {
-      renderedDiv = (
-        <div>
-          {cart.map((cartItem, index) => {
-            return (
-              <div key={cartItem.id}>
-                <h3>ITEM {index}</h3>
-                <ul>Product Id: {cartItem.productId}</ul>
-                <ul>Quantity: {cartItem.quantity}</ul>
-                <ul>Price: {cartItem.price}</ul>
-                <button>Delete Item</button>
-              </div>
-            );
-          })}
-        </div>
-      );
+      if (cart.length) {
+        renderedDiv = (
+          <div>
+            {cart.map((cartItem) => {
+              return (
+                <div key={cartItem.id}>
+                  <h3>{cartItem.product.name}</h3>
+                  <ul>Product Id: {cartItem.productId}</ul>
+                  <ul>Quantity: {cartItem.quantity}</ul>
+                  <ul>Price: {cartItem.price}</ul>
+                  <button>Delete Item</button>
+                </div>
+              );
+            })}
+          </div>
+        );
+      } else renderedDiv = <div>Cart is Empty!</div>;
     } else {
       renderedDiv = <div>User is not Logged in!</div>;
     }

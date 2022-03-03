@@ -2503,11 +2503,13 @@ class Cart extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     } = this.props;
 
     if (userId) {
-      renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, cart.map((cartItem, index) => {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          key: cartItem.id
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "ITEM ", index), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Product Id: ", cartItem.productId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Quantity: ", cartItem.quantity), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Price: ", cartItem.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Delete Item"));
-      }));
+      if (cart.length) {
+        renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, cart.map(cartItem => {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            key: cartItem.id
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, cartItem.product.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Product Id: ", cartItem.productId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Quantity: ", cartItem.quantity), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Price: ", cartItem.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Delete Item"));
+        }));
+      } else renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Cart is Empty!");
     } else {
       renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "User is not Logged in!");
     }
