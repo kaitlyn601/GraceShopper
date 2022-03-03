@@ -18,8 +18,19 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     let productId = req.params.id;
-    const project = await Product.findByPk(productId);
-    res.send(project);
+    const product = await Product.findByPk(productId);
+    res.send(product);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// DELETE /api/products/:id
+router.delete("/:id", async (req, res, next) => {
+  try {
+    let productId = req.params.id;
+    const deletedProduct = await Product.destroy({ where: { id: productId } });
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }

@@ -8,6 +8,12 @@ export class EditProject extends React.Component {
     this.state = this.props.currentProduct;
   }
 
+  componentDidUpdate() {
+    if (this.state.id !== this.props.currentProduct.id) {
+      this.setState({ ...this.props.currentProduct });
+    }
+  }
+
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value,
@@ -24,7 +30,7 @@ export class EditProject extends React.Component {
     return (
       <div>
         <h1>Edit This Product "{product.name}":</h1>
-        <from id="edit-product-form" onSubmit={(e) => this.handleSubmit(e)}>
+        <form id="edit-product-form" onSubmit={(e) => this.handleSubmit(e)}>
           <label htmlFor="name"> Name: </label>
           <input
             name="name"
@@ -67,7 +73,7 @@ export class EditProject extends React.Component {
             value={this.state.imageURL}
           />
           <input type="submit" value="Edit Product" />
-        </from>
+        </form>
       </div>
     );
   }

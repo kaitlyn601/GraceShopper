@@ -1,10 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getProducts } from "../store/allProducts";
 import AddProduct from "./AddProduct";
+import { Link } from "react-router-dom";
+import { getProducts, deleteProduct } from "../store/allProducts";
 
 class AllProducts extends React.Component {
+  constructor() {
+    super();
+    this.handleDelete = this.handleDelete.bind(this);
+  }
   componentDidMount() {
+    this.props.loadAllProducts();
+  }
+
+  async handleDelete(id) {
+    await this.props.deleteProduct(id);
     this.props.loadAllProducts();
   }
 
@@ -22,14 +32,24 @@ class AllProducts extends React.Component {
 
       <div>
         {/* if user type is Admin, then also render a Delete button for each product : */}
-        {/* {isAdmin ? <button>Delete</button> : <div></div>} */}
         {products.map((product) => {
           return (
             <div key={product.id}>
-              <h3>
-                {product.name} Only Costs {product.price} !
-              </h3>
-              <img src={product.imageURL} />
+              <Link to={`/products/${product.id}`}>
+                {product.name} Price {product.price}
+                <img src={product.imageURL} />
+              </Link>
+
+              {this.props.isAdmin ? (
+                <button
+                  type="button"
+                  onClick={() => this.handleDelete(product.id)}
+                >
+                  Delete
+                </button>
+              ) : (
+                <div></div>
+              )}
             </div>
           );
         })}
@@ -43,14 +63,16 @@ class AllProducts extends React.Component {
 const mapState = (state) => {
   return {
     products: state.products,
-    // isAdmin: state.auth.isAdmin,
-    // need to add an attribute called 'isAdmin' to our User model. type must be BOOL. then we can use props.isAdmin to conditionally render AddForm and Delete button
+    isAdmin: state.auth.isAdmin,
+    // added an attribute called 'isAdmin' to our User model. type is BOOL.
+    // props.isAdmin conditionally renders AddForm and Delete button
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     loadAllProducts: () => dispatch(getProducts()),
+    deleteProduct: (id) => dispatch(deleteProduct(id)),
   };
 };
 
