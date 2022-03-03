@@ -6,8 +6,13 @@ import EditProduct from "./EditProduct";
 import { getCart } from "../store/cart";
 
 class SingleProduct extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+      quantity: 1,
+    };
+    this.IncrementItem = this.IncrementItem.bind(this);
+    this.DecrementItem = this.DecrementItem.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
   }
   componentDidMount() {
@@ -26,7 +31,7 @@ class SingleProduct extends React.Component {
       // USE LOCAL STORAGE
       let orderItemObj = {
         price: product.price,
-        quantity: 1,
+        quantity: this.state.quantity,
         productId: product.id,
         // orderId:  No orderId until user account (and a cart) are created in DB
         // id:  an id property will be created by Sequelize automatically, when order-item is instantiated in DB via "OrderItem.create()"
@@ -55,6 +60,13 @@ class SingleProduct extends React.Component {
   // except its property .orderId will be this.props.state.cart.id
   // and instead of adding this orderItemObject to an array that gets stringified and stored in localStorage,
   // we'll use a THUNK to create instance of OrderItem in DB, using this object, and also update Redux store
+  IncrementItem() {
+    this.setState({ quantity: this.state.quantity + 1 });
+  }
+  DecrementItem() {
+    if (this.state.quantity > 1)
+      this.setState({ quantity: this.state.quantity - 1 });
+  }
 
   render() {
     const { product } = this.props;
@@ -70,9 +82,10 @@ class SingleProduct extends React.Component {
             <h2>{product.price}</h2>
             <div>
               <label>Quantity</label>
-              <button>-</button>
-              <input type="number" min="0"></input>
-              <button>+</button>
+              <button onClick={this.DecrementItem}>-</button>
+              {/* <input value={this.state.quantity} /> */}
+              <span> {this.state.quantity} </span>
+              <button onClick={this.IncrementItem}>+</button>
             </div>
 
             <button type="button" onClick={this.handleAddToCart}>
