@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const { Module } = require('webpack');
 const db = require('../db');
 
-const OrderItem = db.define('order_item', {
+const OrderItem = db.define('orderitem', {
   quantity: {
     type: Sequelize.INTEGER,
   },
