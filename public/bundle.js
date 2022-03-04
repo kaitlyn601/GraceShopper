@@ -2581,7 +2581,15 @@ class Cart extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         }));
       } else renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Cart is Empty!");
     } else {
-      renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "User is not Logged in!");
+      // window.localStorage.removeItem("cart");
+      let guestCart = window.localStorage.getItem("cart");
+
+      if (guestCart) {
+        const guestCartArray = JSON.parse(guestCart);
+        renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "User is not Logged in!");
+      } else {
+        renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "cart is empty");
+      }
     }
 
     return renderedDiv;
@@ -2855,23 +2863,37 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
   componentDidMount() {
     this.props.loadSingleProduct(this.props.match.params.id);
-  }
+  } // CONVERTING GUEST TO USER -- ACOUNT CREATED AFTER SHOPPING W/ LOCAL STORAGE
+  // let currlocal = window.localStorage.getItem("cart")
+  // if(isLoggedIn && currlocal){
+  // transfer contents of local storage TO this.state.cart
+  // for each item in that array (from local storage) instantiate the order-items
+  // hit the route to create cart for the current user
+  // POST users/:id/cart
+  //
+  // for each item in array  - assign orderId property to the cart id just created
+  // promise.all([guestCartArray])
+  // }
+
 
   handleAddToCart() {
     const {
-      product
-    } = this.props;
-    const {
-      cart
-    } = this.props;
-    const {
-      isLoggedIn
+      product,
+      cart,
+      isLoggedIn,
+      addToCart,
+      userId
     } = this.props;
 
     if (isLoggedIn) {
       // USE CART ON STATE
       window.localStorage.removeItem("cart");
-      console.log(cart);
+      let cartItem = {
+        price: product.price,
+        quantity: this.state.quantity,
+        productId: product.id
+      };
+      addToCart(userId, cartItem);
     } else {
       // USE LOCAL STORAGE
       let orderItemObj = {
@@ -2889,9 +2911,14 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         guestCartArray = JSON.parse(guestCart);
       } else {
         guestCartArray = [];
-      }
+      } // IF the array already contains an object with that same productId
+      // THEN instead, increment the quantity of THAT object
+      // ELSE, push the orderItemObj to the array
 
-      guestCartArray.push(orderItemObj);
+
+      let existingItem = guestCartArray.filter(itemObj => itemObj.productId === product.id)[0];
+      if (existingItem) existingItem.quantity += this.state.quantity;else guestCartArray.push(orderItemObj); //
+
       let stringifiedCartArray = JSON.stringify(guestCartArray);
       window.localStorage.setItem("cart", stringifiedCartArray);
     }
@@ -2964,7 +2991,8 @@ const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch((0,_store_product__WEBPACK_IMPORTED_MODULE_2__.getProduct)(id)),
     // added on branch feature/add-to-cart-button :
-    getCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_4__.getCart)(id))
+    getCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_4__.getCart)(id)),
+    addToCart: (id, cartItem) => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_4__.addToCart)(id, cartItem))
   };
 };
 
@@ -3316,19 +3344,28 @@ const logout = () => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "_getCart": () => (/* binding */ _getCart),
+/* harmony export */   "_addToCart": () => (/* binding */ _addToCart),
 /* harmony export */   "getCart": () => (/* binding */ getCart),
+/* harmony export */   "addToCart": () => (/* binding */ addToCart),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
  // ACTION TYPE
 
-const GET_CART = 'GET_CART'; // ACTION CREATORS
+const GET_CART = 'GET_CART';
+const ADD_TO_CART = 'ADD_TO_CART'; // ACTION CREATORS
 
 const _getCart = cart => {
   return {
     type: GET_CART,
     cart
+  };
+};
+const _addToCart = cartItem => {
+  return {
+    type: ADD_TO_CART,
+    cartItem
   };
 }; // THUNK CREATORS
 
@@ -3343,12 +3380,27 @@ const getCart = id => {
       console.log(err);
     }
   };
+};
+const addToCart = (id, cartItem) => {
+  return async dispatch => {
+    try {
+      const {
+        data: newCartItem
+      } = await axios__WEBPACK_IMPORTED_MODULE_0___default().post(`/api/users/${id}/cart`, cartItem);
+      dispatch(_addToCart(newCartItem));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }; // REDUCER
 
 const cartReducer = (state = [], action) => {
   switch (action.type) {
     case GET_CART:
       return action.cart;
+
+    case ADD_TO_CART:
+      return [...state, action.cartItem];
 
     default:
       return state;

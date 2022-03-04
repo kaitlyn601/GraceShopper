@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getCart } from '../store/cart';
+import React from "react";
+import { connect } from "react-redux";
+import { getCart } from "../store/cart";
 
 class Cart extends React.Component {
   constructor() {
@@ -33,8 +33,17 @@ class Cart extends React.Component {
         );
       } else renderedDiv = <div>Cart is Empty!</div>;
     } else {
-      renderedDiv = <div>User is not Logged in!</div>;
+      // window.localStorage.removeItem("cart");
+      let guestCart = window.localStorage.getItem("cart");
+      if (guestCart) {
+        const guestCartArray = JSON.parse(guestCart);
+
+        renderedDiv = <div>User is not Logged in!</div>;
+      } else {
+        renderedDiv = <div>cart is empty</div>;
+      }
     }
+
     return renderedDiv;
   }
 }
