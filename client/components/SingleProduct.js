@@ -1,9 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
-import { getProduct } from "../store/product";
-import EditProduct from "./EditProduct";
+import React from 'react';
+import { connect } from 'react-redux';
+import { getProduct } from '../store/product';
+import EditProduct from './EditProduct';
 // added on branch feature/add-to-cart-button :
-import { getCart } from "../store/cart";
+import { getCart, addToCart } from '../store/cart';
 
 class SingleProduct extends React.Component {
   constructor(props) {
@@ -20,13 +20,16 @@ class SingleProduct extends React.Component {
   }
 
   handleAddToCart() {
-    const { product } = this.props;
-    const { cart } = this.props;
-    const { isLoggedIn } = this.props;
+    const { product, cart, isLoggedIn, addToCart, userId } = this.props;
     if (isLoggedIn) {
       // USE CART ON STATE
-      window.localStorage.removeItem("cart");
-      console.log(cart);
+      window.localStorage.removeItem('cart');
+      let cartItem = {
+        price: product.price,
+        quantity: this.state.quantity,
+        productId: product.id,
+      };
+      addToCart(userId, cartItem);
     } else {
       // USE LOCAL STORAGE
       let orderItemObj = {
@@ -38,16 +41,16 @@ class SingleProduct extends React.Component {
       };
       let guestCartArray;
 
-      let guestCart = window.localStorage.getItem("cart");
+      let guestCart = window.localStorage.getItem('cart');
       if (guestCart) {
-        console.log("we do have a cart", guestCart);
+        console.log('we do have a cart', guestCart);
         guestCartArray = JSON.parse(guestCart);
       } else {
         guestCartArray = [];
       }
       guestCartArray.push(orderItemObj);
       let stringifiedCartArray = JSON.stringify(guestCartArray);
-      window.localStorage.setItem("cart", stringifiedCartArray);
+      window.localStorage.setItem('cart', stringifiedCartArray);
     }
   }
   // if user is logged in (isLoggedIn), then the add-to-cart handler
@@ -127,6 +130,7 @@ const mapDispatch = (dispatch) => {
     loadSingleProduct: (id) => dispatch(getProduct(id)),
     // added on branch feature/add-to-cart-button :
     getCart: (id) => dispatch(getCart(id)),
+    addToCart: (id, cartItem) => dispatch(addToCart(id, cartItem)),
   };
 };
 

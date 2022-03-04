@@ -74,7 +74,6 @@ router.post('/:id/cart', async (req, res, next) => {
       },
     });
     req.body.orderId = currentOrder[0].id;
-    console.log(req.body);
     const newItem = await OrderItem.create(req.body, {
       include: [{ model: Product }],
     });
