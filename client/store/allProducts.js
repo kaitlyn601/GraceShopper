@@ -23,6 +23,7 @@ const _editProduct = (product) => ({
   type: EDIT_PRODUCT,
   product,
 });
+
 const _deletedProduct = (product) => {
   return {
     type: DELETED_PRODUCT,
@@ -41,7 +42,6 @@ export const getProducts = () => {
     }
   };
 };
-
 export const addProductThunk = (product) => async (dispatch) => {
   const { data: created } = await axios.post("/api/products", product);
   dispatch(_addProduct(created));
@@ -65,7 +65,6 @@ export const deleteProduct = (productId) => {
     }
   };
 };
-
 //---------REDUCER
 const initialState = [];
 const productsReducer = (state = initialState, action) => {

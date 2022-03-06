@@ -1,7 +1,7 @@
 import axios from "axios";
 // ACTION TYPE
 const GET_USER = "GET_USER";
-
+const TOKEN = "token";
 // ACTION CREATORS
 export const _getUser = (user) => {
   return {
@@ -13,8 +13,13 @@ export const _getUser = (user) => {
 export const getUser = (id) => {
   return async (dispatch) => {
     try {
-      const { data: user } = await axios.get(`/api/users/${id}`);
-      dispatch(_getUser(user));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data: user } = await axios.get(`/api/users/${id}`, {
+          headers: { authorization: token },
+        });
+        dispatch(_getUser(user));
+      }
     } catch (err) {
       console.log(err);
     }

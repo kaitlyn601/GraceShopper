@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 // ACTION TYPE
-const GET_CART = 'GET_CART';
-const ADD_TO_CART = 'ADD_TO_CART';
+const GET_CART = "GET_CART";
+const ADD_TO_CART = "ADD_TO_CART";
+const TOKEN = "token";
 
 // ACTION CREATORS
 export const _getCart = (cart) => {
@@ -21,8 +22,13 @@ export const _addToCart = (cartItem) => {
 export const getCart = (id) => {
   return async (dispatch) => {
     try {
-      const { data: cart } = await axios.get(`/api/users/${id}/cart`);
-      dispatch(_getCart(cart));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data: cart } = await axios.get(`/api/users/${id}/cart`, {
+          headers: { authorization: token },
+        });
+        dispatch(_getCart(cart));
+      }
     } catch (err) {
       console.log(err);
     }

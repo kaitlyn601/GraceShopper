@@ -2790,7 +2790,9 @@ const Navbar = ({
   to: "/products"
 }, "All Products"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
   to: "/home"
-}, "Home"), isAdmin ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+}, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+  to: "/cart"
+}, "Cart"), isAdmin ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
   to: "/users"
 }, "All Users") : "", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
   href: "#",
@@ -2801,7 +2803,9 @@ const Navbar = ({
   to: "/login"
 }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
   to: "/signup"
-}, "Sign Up"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", null));
+}, "Sign Up"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+  to: "/cart"
+}, "Cart"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", null));
 /**
  * CONTAINER
  */
@@ -3027,8 +3031,27 @@ class SingleUser extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     const {
       user
     } = this.props;
+    const {
+      orders
+    } = user;
+    let fulfilledOrders = [];
+
+    if (orders) {
+      fulfilledOrders = orders.filter(order => order.fulfilled);
+    }
+
+    console.log("fulfilled", fulfilledOrders);
+    console.log("props", this.props.user);
     if (!user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Loading");
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Username ", user.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "User Type: ", user.isAdmin ? "Admin" : "User"));
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Username ", user.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "User Type: ", user.isAdmin ? "Admin" : "User"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Past Order:"), fulfilledOrders.length < 1 ? "There are currently no orders" : fulfilledOrders.map(order => {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        key: order.id
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Order Id: ", order.id), order.orderitems.map(orderItem => {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          key: orderItem.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Order Item ID: ", orderItem.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Quantity: ", orderItem.quantity), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, "Price: ", orderItem.price));
+      })));
+    }));
   }
 
 }
@@ -3353,8 +3376,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
  // ACTION TYPE
 
-const GET_CART = 'GET_CART';
-const ADD_TO_CART = 'ADD_TO_CART'; // ACTION CREATORS
+const GET_CART = "GET_CART";
+const ADD_TO_CART = "ADD_TO_CART";
+const TOKEN = "token"; // ACTION CREATORS
 
 const _getCart = cart => {
   return {
@@ -3372,10 +3396,18 @@ const _addToCart = cartItem => {
 const getCart = id => {
   return async dispatch => {
     try {
-      const {
-        data: cart
-      } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/users/${id}/cart`);
-      dispatch(_getCart(cart));
+      const token = window.localStorage.getItem(TOKEN);
+
+      if (token) {
+        const {
+          data: cart
+        } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/users/${id}/cart`, {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(_getCart(cart));
+      }
     } catch (err) {
       console.log(err);
     }
@@ -3533,7 +3565,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
  // ACTION TYPE
 
-const GET_USER = "GET_USER"; // ACTION CREATORS
+const GET_USER = "GET_USER";
+const TOKEN = "token"; // ACTION CREATORS
 
 const _getUser = user => {
   return {
@@ -3545,10 +3578,18 @@ const _getUser = user => {
 const getUser = id => {
   return async dispatch => {
     try {
-      const {
-        data: user
-      } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/users/${id}`);
-      dispatch(_getUser(user));
+      const token = window.localStorage.getItem(TOKEN);
+
+      if (token) {
+        const {
+          data: user
+        } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get(`/api/users/${id}`, {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(_getUser(user));
+      }
     } catch (err) {
       console.log(err);
     }
