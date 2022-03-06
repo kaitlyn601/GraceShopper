@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { getCart } from "../store/cart";
+import React from 'react';
+import { connect } from 'react-redux';
+import { getCart, deleteFromCart } from '../store/cart';
 
 class Cart extends React.Component {
   constructor() {
@@ -25,7 +25,13 @@ class Cart extends React.Component {
                   <ul>Product Id: {cartItem.productId}</ul>
                   <ul>Quantity: {cartItem.quantity}</ul>
                   <ul>Price: {cartItem.price}</ul>
-                  <button>Delete Item</button>
+                  <button
+                    onClick={() => {
+                      this.props.deleteFromCart(userId, cartItem.id);
+                    }}
+                  >
+                    Delete Item
+                  </button>
                 </div>
               );
             })}
@@ -34,7 +40,7 @@ class Cart extends React.Component {
       } else renderedDiv = <div>Cart is Empty!</div>;
     } else {
       // window.localStorage.removeItem("cart");
-      let guestCart = window.localStorage.getItem("cart");
+      let guestCart = window.localStorage.getItem('cart');
       if (guestCart) {
         const guestCartArray = JSON.parse(guestCart);
 
@@ -58,6 +64,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getCart: (id) => dispatch(getCart(id)),
+    deleteFromCart: (userId, itemId) =>
+      dispatch(deleteFromCart(userId, itemId)),
   };
 };
 

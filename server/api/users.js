@@ -82,3 +82,26 @@ router.post('/:id/cart', async (req, res, next) => {
     next(error);
   }
 });
+
+//PUT /api/users/:id/cart/:itemId
+router.put('/:id/cart/itemId', async (req, res, next) => {
+  try {
+    const cartItem = OrderItem.findByPk(req.params.itemId, {
+      include: [{ model: Product }],
+    });
+    res.send(await cartItem.update(req.body));
+  } catch (error) {
+    next(error);
+  }
+});
+
+//DELETE /api/users/:id/cart/:itemId
+router.delete('/:id/cart/:itemId', async (req, res, next) => {
+  try {
+    const cartItem = await OrderItem.findByPk(req.params.itemId);
+    await cartItem.destroy();
+    res.send(cartItem);
+  } catch (error) {
+    next(error);
+  }
+});
