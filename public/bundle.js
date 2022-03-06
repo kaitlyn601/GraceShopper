@@ -3239,7 +3239,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
  //---------ACTION CONSTANT
 
-const GET_USERS = "GET_USERS"; //---------ACTION CREATORS
+const GET_USERS = "GET_USERS";
+const TOKEN = "token"; //---------ACTION CREATORS
 
 const _getUsers = users => {
   return {
@@ -3252,10 +3253,18 @@ const _getUsers = users => {
 const getUsers = () => {
   return async dispatch => {
     try {
-      const {
-        data: users
-      } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/users");
-      dispatch(_getUsers(users));
+      const token = window.localStorage.getItem(TOKEN);
+
+      if (token) {
+        const {
+          data: users
+        } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/users", {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(_getUsers(users));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -3390,7 +3399,8 @@ __webpack_require__.r(__webpack_exports__);
 const GET_CART = "GET_CART";
 const ADD_TO_CART = "ADD_TO_CART";
 const DELETE_FROM_CART = "DELETE_FROM_CART";
-const EDIT_CART_ITEM = "EDIT_CART_ITEM"; // ACTION CREATORS
+const EDIT_CART_ITEM = "EDIT_CART_ITEM";
+const TOKEN = "token"; // ACTION CREATORS
 
 const _getCart = cart => {
   return {

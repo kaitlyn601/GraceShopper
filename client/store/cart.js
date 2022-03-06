@@ -4,6 +4,7 @@ const GET_CART = "GET_CART";
 const ADD_TO_CART = "ADD_TO_CART";
 const DELETE_FROM_CART = "DELETE_FROM_CART";
 const EDIT_CART_ITEM = "EDIT_CART_ITEM";
+const TOKEN = "token";
 
 // ACTION CREATORS
 export const _getCart = (cart) => {
