@@ -1,19 +1,28 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getCart, deleteFromCart } from '../store/cart';
+import React from "react";
+import { connect } from "react-redux";
+import { getCart, deleteFromCart, updateCart } from "../store/cart";
 
 class Cart extends React.Component {
   constructor() {
     super();
+    this.handleCheckout = this.handleCheckout.bind(this);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.userId != this.props.userId)
       this.props.getCart(this.props.userId);
   }
+  handleCheckout() {
+    if (!this.props.cart.fulfilled) {
+      this.props.updateCart({
+        ...this.props.cart,
+        fulfilled: !this.props.cart.fulfilled,
+      });
+    }
+  }
   render() {
     let renderedDiv;
-    const { cart, userId } = this.props;
+    const { cart, userId, handleCheckout } = this.props;
     console.log(cart);
     if (userId) {
       if (cart.length) {
@@ -26,6 +35,7 @@ class Cart extends React.Component {
                   <ul>Product Id: {cartItem.productId}</ul>
                   <ul>Quantity: {cartItem.quantity}</ul>
                   <ul>Price: {cartItem.price}</ul>
+
                   <button
                     onClick={() => {
                       this.props.deleteFromCart(userId, cartItem.id);
@@ -36,12 +46,15 @@ class Cart extends React.Component {
                 </div>
               );
             })}
+            {/* <Link to="/confirmation"> */}
+            <button onClick={handleCheckout}>Checkout</button>
+            {/* </Link> */}
           </div>
         );
       } else renderedDiv = <div>Cart is Empty!</div>;
     } else {
       // window.localStorage.removeItem("cart");
-      let guestCart = window.localStorage.getItem('cart');
+      let guestCart = window.localStorage.getItem("cart");
       if (guestCart) {
         const guestCartArray = JSON.parse(guestCart);
 
@@ -67,6 +80,7 @@ const mapDispatch = (dispatch) => {
     getCart: (id) => dispatch(getCart(id)),
     deleteFromCart: (userId, itemId) =>
       dispatch(deleteFromCart(userId, itemId)),
+    updateCart: (cart) => dispatch(updateCart(cart)),
   };
 };
 

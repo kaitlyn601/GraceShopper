@@ -1,9 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 // ACTION CONSTANTS
-const GET_CART = 'GET_CART';
-const ADD_TO_CART = 'ADD_TO_CART';
-const DELETE_FROM_CART = 'DELETE_FROM_CART';
-const EDIT_CART_ITEM = 'EDIT_CART_ITEM';
+const GET_CART = "GET_CART";
+const ADD_TO_CART = "ADD_TO_CART";
+const DELETE_FROM_CART = "DELETE_FROM_CART";
+const EDIT_CART_ITEM = "EDIT_CART_ITEM";
+const UPDATE_CART = "UPDATE_CART";
 
 // ACTION CREATORS
 export const _getCart = (cart) => {
@@ -25,7 +26,12 @@ export const _deleteFromCart = (cartItem) => {
     cartItem,
   };
 };
-
+export const _updateCart = (cart) => {
+  return {
+    type: UPDATE_CART,
+    cart,
+  };
+};
 // THUNK CREATORS
 export const getCart = (id) => {
   return async (dispatch) => {
@@ -51,7 +57,19 @@ export const addToCart = (id, cartItem) => {
     }
   };
 };
-
+export const updateCart = (cart) => {
+  return async (dispatch) => {
+    try {
+      const { data: updatedOrder } = await axios.put(
+        `/api/users/${cart.id}/cart`,
+        cart
+      );
+      dispatch(_updateCart(updatedOrder));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 export const deleteFromCart = (userId, itemId) => {
   return async (dispatch) => {
     try {
@@ -74,6 +92,10 @@ const cartReducer = (state = [], action) => {
       return [...state, action.cartItem];
     case DELETE_FROM_CART:
       return state.filter((cartItem) => cartItem.id !== action.cartItem.id);
+    case UPDATE_CART:
+      return state.map((order) =>
+        order.id === action.order.id ? action.order : order
+      );
     default:
       return state;
   }
