@@ -1,4 +1,5 @@
 import React from "react";
+import { SocialIcon } from "react-social-icons";
 
 export const Footer = () => {
   return (
@@ -131,6 +132,11 @@ export const Footer = () => {
             <li>
               <a className="footer-link" href="#">
                 Privacy & terms
+              </a>
+            </li>
+            <li>
+              <a>
+                <SocialIcon url="https://github.com/TotodileTamers/GraceShopper" />
               </a>
             </li>
           </ul>
