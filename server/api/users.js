@@ -90,11 +90,9 @@ router.post('/:id/cart', async (req, res, next) => {
 });
 
 //PUT /api/users/:id/cart/:itemId
-router.put('/:id/cart/itemId', async (req, res, next) => {
+router.put('/:id/cart/:itemId', async (req, res, next) => {
   try {
-    const cartItem = OrderItem.findByPk(req.params.itemId, {
-      include: [{ model: Product }],
-    });
+    const cartItem = await OrderItem.findByPk(req.params.itemId);
     res.send(await cartItem.update(req.body));
   } catch (error) {
     next(error);

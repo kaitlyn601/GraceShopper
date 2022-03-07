@@ -26,6 +26,13 @@ export const _deleteFromCart = (cartItem) => {
   };
 };
 
+export const _editCartItem = (cartItem) => {
+  return {
+    type: EDIT_CART_ITEM,
+    cartItem,
+  };
+};
+
 // THUNK CREATORS
 export const getCart = (id) => {
   return async (dispatch) => {
@@ -65,6 +72,20 @@ export const deleteFromCart = (userId, itemId) => {
   };
 };
 
+export const editCartItem = (userId, cartItem) => {
+  return async (dispatch) => {
+    try {
+      const { data: updatedCartItem } = await axios.put(
+        `/api/users/${userId}/cart/${cartItem.id}`,
+        cartItem
+      );
+      dispatch(_editCartItem(updatedCartItem));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // REDUCER
 const cartReducer = (state = [], action) => {
   switch (action.type) {
@@ -74,6 +95,10 @@ const cartReducer = (state = [], action) => {
       return [...state, action.cartItem];
     case DELETE_FROM_CART:
       return state.filter((cartItem) => cartItem.id !== action.cartItem.id);
+    case EDIT_CART_ITEM:
+      return state.map((cartItem) =>
+        cartItem.id === action.cartItem.id ? action.cartItem : cartItem
+      );
     default:
       return state;
   }
