@@ -135,9 +135,7 @@ export const Footer = () => {
               </a>
             </li>
             <li>
-              <a>
-                <SocialIcon url="https://github.com/TotodileTamers/GraceShopper" />
-              </a>
+              <SocialIcon url="https://github.com/TotodileTamers/GraceShopper" />
             </li>
           </ul>
         </nav>
