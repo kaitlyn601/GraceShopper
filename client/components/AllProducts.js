@@ -30,11 +30,11 @@ class AllProducts extends React.Component {
       // example: <Link to='/product/:id' >{product.name}< /Link>
       // <Route path='/product/:id' component={SingleProduct} />
 
-      <div>
+      <div className="grid-container">
         {/* if user type is Admin, then also render a Delete button for each product : */}
         {products.map((product) => {
           return (
-            <div key={product.id}>
+            <div className="product-container" key={product.id}>
               <Link to={`/products/${product.id}`}>
                 {product.name} Price $ {product.price / 100}
                 <img src={product.imageURL} />

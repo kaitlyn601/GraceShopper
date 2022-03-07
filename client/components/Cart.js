@@ -1,12 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getCart, deleteFromCart, editCartItem } from "../store/cart";
+import {
+  getCart,
+  deleteFromCart,
+  editCartItem,
+  updateCart,
+} from "../store/cart";
 
 class Cart extends React.Component {
   constructor() {
     super();
     // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
     this.state = { guestCartArray: [] };
+    this.handleGuestDelete = this.handleGuestDelete.bind(this);
     this.handleGuestDelete = this.handleGuestDelete.bind(this);
   }
 
@@ -23,7 +29,12 @@ class Cart extends React.Component {
     if (prevProps.userId != this.props.userId)
       this.props.getCart(this.props.userId);
   }
-
+  handleCheckout(id) {
+    console.log("this.props.cart", this.props.cart);
+    /*  if (!this.props.cart.fulfilled) { */
+    this.props.updateCart(id);
+    /*   } */
+  }
   // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
   async handleGuestDelete(productId) {
     // created updated array, removing the chosen product
@@ -81,6 +92,9 @@ class Cart extends React.Component {
                 </div>
               );
             })}
+            <button onClick={() => this.handleCheckout(userId)}>
+              Checkout
+            </button>
           </div>
         );
       } else renderedDiv = <div>Cart is Empty!</div>;
@@ -130,6 +144,7 @@ const mapDispatch = (dispatch) => {
       dispatch(deleteFromCart(userId, itemId)),
     editCartItem: (userId, cartItem) =>
       dispatch(editCartItem(userId, cartItem)),
+    updateCart: (id) => dispatch(updateCart(id)),
   };
 };
 

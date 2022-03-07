@@ -107,6 +107,14 @@ form div {
   color: #cfb56a;
   cursor: pointer;
 }
+/* Product */
+.grid-container {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.product-container {
+}
 /* Footer */
 
 .footer {
