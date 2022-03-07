@@ -142,7 +142,18 @@ class Cart extends React.Component {
           </div>
         );
       } else {
-        renderedDiv = <div>cart is empty</div>;
+        renderedDiv = (
+          <div>
+            <br></br>
+            <br></br>
+            <h2>
+              Your Guest Cart is empty! Take a look at all of our luxurious{" "}
+              <Link to="/products">Products</Link> !
+            </h2>
+            <br></br>
+            <br></br>
+          </div>
+        );
       }
     }
 
