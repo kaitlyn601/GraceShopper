@@ -36,7 +36,7 @@ class AllProducts extends React.Component {
           return (
             <div key={product.id}>
               <Link to={`/products/${product.id}`}>
-                {product.name} Price {product.price}
+                {product.name} Price $ {product.price / 100}
                 <img src={product.imageURL} />
               </Link>
 

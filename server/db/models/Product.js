@@ -11,7 +11,7 @@ const Product = db.define("product", {
     },
   },
   type: {
-    type: Sequelize.ENUM("milk", "white", "dark", "assorted"),
+    type: Sequelize.ENUM("milk", "exotic", "dark", "assorted"),
   },
   price: {
     type: Sequelize.INTEGER,

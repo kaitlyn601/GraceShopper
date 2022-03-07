@@ -74,8 +74,16 @@ router.post("/:id/cart", async (req, res, next) => {
       },
     });
     req.body.orderId = currentOrder[0].id;
-    const newItem = await OrderItem.create(req.body);
-    res.send(newItem);
+    const cartItem = await OrderItem.findOne({
+      where: { orderId: req.body.orderId, productId: req.body.productId },
+    });
+    if (cartItem) {
+      req.body.quantity += cartItem.quantity;
+      res.send(await cartItem.update(req.body));
+    } else {
+      const newItem = await OrderItem.create(req.body);
+      res.send(newItem);
+    }
   } catch (error) {
     next(error);
   }
@@ -91,11 +99,13 @@ router.put("/:id/cart", async (req, res, next) => {
 });
 
 //PUT /api/users/:id/cart/:itemId
+<<<<<<< HEAD
 router.put("/:id/cart/itemId", async (req, res, next) => {
+=======
+router.put('/:id/cart/:itemId', async (req, res, next) => {
+>>>>>>> main
   try {
-    const cartItem = OrderItem.findByPk(req.params.itemId, {
-      include: [{ model: Product }],
-    });
+    const cartItem = await OrderItem.findByPk(req.params.itemId);
     res.send(await cartItem.update(req.body));
   } catch (error) {
     next(error);
