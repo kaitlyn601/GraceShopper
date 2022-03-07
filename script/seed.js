@@ -108,7 +108,7 @@ async function seed() {
       description:
         "ntroducing our newest innovation in cheese and chocolate. 12-month aged Vermont cheddar cheese blended with apples, cinnamon and our proprietary blend of 45% dark milk chocolate.",
       imageURL:
-        "https://cdn.shopify.com/s/files/1/0012/8660/2848/products/Chedder-apple_300x300_059ecbff-1fa0-4400-93e6-b6b8a86780d3_1800x1800.png?v=1569274627",
+        "https://cdn.shopify.com/s/files/1/0012/8660/2848/products/Chedder-apple_1800x1800_059ecbff-1fa0-4400-93e6-b6b8a86780d3_300x300.png?v=1569274627",
     }),
     Product.create({
       name: "TURMERIC GINGER CHOCOLATE BAR",
@@ -168,7 +168,7 @@ async function seed() {
       description:
         "The warmth in the air, buzzing bees in fields of wildflowers and the promise of a summer Dead show are the inspiration for this lush chocolate bar. Oozy raw honey is blended into rich 100% cacao, with the crunch of smoked almonds and buttery toffee. Let this bar transport you to an evening under clear star-studded skies and the sweet sounds of summer.",
       imageURL:
-        "https://cdn.shopify.com/s/files/1/0012/8660/2848/products/GratefulDead_Bar_RawHoney_300x300_91c411c8-56e0-4af9-b687-d873e36cc95d_1800x1800.jpg?v=1592944847",
+        "https://cdn.shopify.com/s/files/1/0012/8660/2848/products/GratefulDead_Bar_RawHoney_1000x1000_91c411c8-56e0-4af9-b687-d873e36cc95d_300x300.jpg?v=1592944847",
     }),
     Product.create({
       name: "RAW HONEY CACAO CHOCOLATE BAR",
