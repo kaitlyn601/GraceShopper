@@ -5,12 +5,11 @@ import { getCart, deleteFromCart, editCartItem } from "../store/cart";
 class Cart extends React.Component {
   constructor() {
     super();
-    // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
     this.state = { guestCartArray: [] };
     this.handleGuestDelete = this.handleGuestDelete.bind(this);
+    this.handleGuestChangeQty = this.handleGuestChangeQty.bind(this);
   }
 
-  // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
   async componentDidMount() {
     let guestCart = window.localStorage.getItem("cart");
     if (guestCart) {
@@ -24,11 +23,27 @@ class Cart extends React.Component {
       this.props.getCart(this.props.userId);
   }
 
-  // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
   async handleGuestDelete(productId) {
     // created updated array, removing the chosen product
     let guestCartArray = this.state.guestCartArray.filter((item) => {
       return item.productId !== productId;
+    });
+    // update local state with this new array, so it re-renders
+    await this.setState({ guestCartArray });
+    // and update the localStorage
+    let stringifiedCartArray = JSON.stringify(guestCartArray);
+    window.localStorage.setItem("cart", stringifiedCartArray);
+  }
+
+  // ADDED with branch 'feature/top-off-guest-cart'
+  async handleGuestChangeQty(productId, method) {
+    // created updated array: inc or dec quantity property of specified product
+    let guestCartArray = this.state.guestCartArray.map((item) => {
+      if (item.productId === productId) {
+        if (method === "increase") item.quantity++;
+        if (method === "decrease") item.quantity--;
+      }
+      return item;
     });
     // update local state with this new array, so it re-renders
     await this.setState({ guestCartArray });
@@ -101,6 +116,20 @@ class Cart extends React.Component {
                     onClick={() => this.handleGuestDelete(cartItem.productId)}
                   >
                     Delete Item
+                  </button>
+                  <button
+                    onClick={() =>
+                      this.handleGuestChangeQty(cartItem.productId, "increase")
+                    }
+                  >
+                    Increase Qty
+                  </button>
+                  <button
+                    onClick={() =>
+                      this.handleGuestChangeQty(cartItem.productId, "decrease")
+                    }
+                  >
+                    Decrease Qty
                   </button>
                 </div>
               );
