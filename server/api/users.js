@@ -74,8 +74,16 @@ router.post('/:id/cart', async (req, res, next) => {
       },
     });
     req.body.orderId = currentOrder[0].id;
-    const newItem = await OrderItem.create(req.body);
-    res.send(newItem);
+    const cartItem = await OrderItem.findOne({
+      where: { orderId: req.body.orderId, productId: req.body.productId },
+    });
+    if (cartItem) {
+      req.body.quantity += cartItem.quantity;
+      res.send(await cartItem.update(req.body));
+    } else {
+      const newItem = await OrderItem.create(req.body);
+      res.send(newItem);
+    }
   } catch (error) {
     next(error);
   }
