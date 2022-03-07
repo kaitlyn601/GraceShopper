@@ -1,16 +1,42 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getCart, deleteFromCart, editCartItem } from '../store/cart';
+import React from "react";
+import { connect } from "react-redux";
+import { getCart, deleteFromCart, editCartItem } from "../store/cart";
 
 class Cart extends React.Component {
   constructor() {
     super();
+    // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
+    this.state = { guestCartArray: [] };
+    this.handleGuestDelete = this.handleGuestDelete.bind(this);
+  }
+
+  // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
+  async componentDidMount() {
+    let guestCart = window.localStorage.getItem("cart");
+    if (guestCart) {
+      const guestCartArray = JSON.parse(guestCart);
+      await this.setState({ guestCartArray });
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.userId != this.props.userId)
       this.props.getCart(this.props.userId);
   }
+
+  // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
+  async handleGuestDelete(productId) {
+    // created updated array, removing the chosen product
+    let guestCartArray = this.state.guestCartArray.filter((item) => {
+      return item.productId !== productId;
+    });
+    // update local state with this new array, so it re-renders
+    await this.setState({ guestCartArray });
+    // and update the localStorage
+    let stringifiedCartArray = JSON.stringify(guestCartArray);
+    window.localStorage.setItem("cart", stringifiedCartArray);
+  }
+
   render() {
     let renderedDiv;
     const { cart, userId } = this.props;
@@ -59,12 +85,28 @@ class Cart extends React.Component {
         );
       } else renderedDiv = <div>Cart is Empty!</div>;
     } else {
-      // window.localStorage.removeItem("cart");
-      let guestCart = window.localStorage.getItem('cart');
-      if (guestCart) {
-        const guestCartArray = JSON.parse(guestCart);
-
-        renderedDiv = <div>User is not Logged in!</div>;
+      if (this.state.guestCartArray.length) {
+        renderedDiv = (
+          <div>
+            Here is your guest cart!
+            {this.state.guestCartArray.map((cartItem) => {
+              return (
+                <div key={cartItem.productId}>
+                  <h3>{cartItem.name}</h3>
+                  <img src={cartItem.image} height="150px" width="150px" />
+                  <ul>Product Id: {cartItem.productId}</ul>
+                  <ul>Quantity: {cartItem.quantity}</ul>
+                  <ul>Price: $ {cartItem.price / 100}</ul>
+                  <button
+                    onClick={() => this.handleGuestDelete(cartItem.productId)}
+                  >
+                    Delete Item
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        );
       } else {
         renderedDiv = <div>cart is empty</div>;
       }
