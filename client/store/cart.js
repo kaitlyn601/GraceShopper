@@ -4,8 +4,7 @@ const GET_CART = "GET_CART";
 const ADD_TO_CART = "ADD_TO_CART";
 const DELETE_FROM_CART = "DELETE_FROM_CART";
 const EDIT_CART_ITEM = "EDIT_CART_ITEM";
-/* const UPDATE_CART = "UPDATE_CART";
- */
+
 // ACTION CREATORS
 export const _getCart = (cart) => {
   return {
@@ -33,12 +32,7 @@ export const _editCartItem = (cartItem) => {
     cartItem,
   };
 };
-/* export const _updateCart = (cart) => {
-  return {
-    type: UPDATE_CART,
-    cart,
-  };
-}; */
+
 // THUNK CREATORS
 export const getCart = (id) => {
   return async (dispatch) => {
@@ -113,10 +107,6 @@ const cartReducer = (state = [], action) => {
       return state.map((cartItem) =>
         cartItem.id === action.cartItem.id ? action.cartItem : cartItem
       );
-    /* case UPDATE_CART:
-      return state.map((order) =>
-        order.id === action.order.id ? action.order : order
-      ); */
     default:
       return state;
   }

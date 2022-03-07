@@ -91,7 +91,12 @@ router.post("/:id/cart", async (req, res, next) => {
 // PUT /api/users/:id/cart
 router.put("/:id/cart", async (req, res, next) => {
   try {
-    const order = await Order.findByPk(req.params.id);
+    const order = await Order.findOne({
+      where: {
+        userId: req.params.id,
+        fulfilled: false,
+      },
+    });
     res.send(await order.update({ fulfilled: true }));
   } catch (error) {
     next(error);

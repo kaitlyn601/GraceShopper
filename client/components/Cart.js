@@ -29,11 +29,8 @@ class Cart extends React.Component {
     if (prevProps.userId != this.props.userId)
       this.props.getCart(this.props.userId);
   }
-  handleCheckout(id) {
-    console.log("this.props.cart", this.props.cart);
-    /*  if (!this.props.cart.fulfilled) { */
-    this.props.updateCart(id);
-    /*   } */
+  handleCheckout() {
+    this.props.updateCart(this.props.userId);
   }
   // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
   async handleGuestDelete(productId) {
@@ -92,9 +89,7 @@ class Cart extends React.Component {
                 </div>
               );
             })}
-            <button onClick={() => this.handleCheckout(userId)}>
-              Checkout
-            </button>
+            <button onClick={() => this.handleCheckout()}>Checkout</button>
           </div>
         );
       } else renderedDiv = <div>Cart is Empty!</div>;
