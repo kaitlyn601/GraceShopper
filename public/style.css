@@ -177,7 +177,7 @@ form div {
 .footer-link:link,
 .footer-link:visited {
   text-decoration: none;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #767676;
   transition: all 0.3s;
 }
