@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCart, deleteFromCart } from '../store/cart';
+import { getCart, deleteFromCart, editCartItem } from '../store/cart';
 
 class Cart extends React.Component {
   constructor() {
@@ -14,7 +14,6 @@ class Cart extends React.Component {
   render() {
     let renderedDiv;
     const { cart, userId } = this.props;
-    console.log(cart);
     if (userId) {
       if (cart.length) {
         renderedDiv = (
@@ -32,6 +31,22 @@ class Cart extends React.Component {
                     }}
                   >
                     Delete Item
+                  </button>
+                  <button
+                    onClick={() => {
+                      cartItem.quantity++;
+                      this.props.editCartItem(userId, cartItem);
+                    }}
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() => {
+                      cartItem.quantity--;
+                      this.props.editCartItem(userId, cartItem);
+                    }}
+                  >
+                    -
                   </button>
                 </div>
               );
@@ -67,6 +82,8 @@ const mapDispatch = (dispatch) => {
     getCart: (id) => dispatch(getCart(id)),
     deleteFromCart: (userId, itemId) =>
       dispatch(deleteFromCart(userId, itemId)),
+    editCartItem: (userId, cartItem) =>
+      dispatch(editCartItem(userId, cartItem)),
   };
 };
 
