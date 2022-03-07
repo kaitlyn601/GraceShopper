@@ -12,6 +12,9 @@ const OrderItem = db.define('orderitem', {
   price: {
     type: Sequelize.INTEGER,
   },
+  imageURL: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = OrderItem;

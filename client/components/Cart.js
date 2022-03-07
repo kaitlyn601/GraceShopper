@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { getCart, deleteFromCart, editCartItem } from "../store/cart";
+import React from 'react';
+import { connect } from 'react-redux';
+import { getCart, deleteFromCart, editCartItem } from '../store/cart';
 
 class Cart extends React.Component {
   constructor() {
@@ -12,7 +12,7 @@ class Cart extends React.Component {
 
   // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
   async componentDidMount() {
-    let guestCart = window.localStorage.getItem("cart");
+    let guestCart = window.localStorage.getItem('cart');
     if (guestCart) {
       const guestCartArray = JSON.parse(guestCart);
       await this.setState({ guestCartArray });
@@ -34,7 +34,7 @@ class Cart extends React.Component {
     await this.setState({ guestCartArray });
     // and update the localStorage
     let stringifiedCartArray = JSON.stringify(guestCartArray);
-    window.localStorage.setItem("cart", stringifiedCartArray);
+    window.localStorage.setItem('cart', stringifiedCartArray);
   }
 
   render() {
@@ -48,7 +48,7 @@ class Cart extends React.Component {
               return (
                 <div key={cartItem.id}>
                   <h3>{cartItem.name}</h3>
-                  <ul>Product Id: {cartItem.productId}</ul>
+                  <img src={cartItem.imageURL} height="150px" width="150px" />
                   <ul>Quantity: {cartItem.quantity}</ul>
                   <ul>Price: {cartItem.price}</ul>
                   <button
