@@ -45,6 +45,9 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
       ) : (
         <ul className="main-nav-list">
           {/* The navbar will show these links before you log in */}
+          <Link className="main-nav-link" to="/home">
+            Home
+          </Link>
           <Link className="main-nav-link" to="/products">
             Chocolate
           </Link>

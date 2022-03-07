@@ -61,6 +61,48 @@ form div {
 .main-nav-link:active {
   color: #cfb56a;
 }
+/* Home */
+.welcome {
+  text-align: end;
+}
+.home-img {
+  width: 100%;
+}
+/* Sign-In */
+.sign-in {
+  height: 100%;
+  padding-left: 50px;
+}
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  /*  align-items: center; */
+  padding: 20px 0px;
+  border: 1px solid rgba(128, 128, 128, 0.596);
+  margin: 60px auto;
+}
+.signin-form div {
+  padding: 0 20px;
+}
+.login {
+  padding: 30px 36px;
+}
+.label::after {
+  content: "*";
+  color: #c00;
+}
+.input {
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+}
+.button {
+  width: 100%;
+  color: white;
+  background-color: black;
+  height: 37px;
+  font-size: 18px;
+}
 /* Footer */
 
 .footer {

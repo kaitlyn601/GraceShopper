@@ -9,7 +9,12 @@ export const Home = (props) => {
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <h3 className="welcome">Welcome, {username}</h3>
+      <img
+        class="home-img"
+        alt="home-img"
+        src="https://media-cldnry.s-nbcnews.com/image/upload/newscms/2021_04/3445161/210126-godivaclosing-bd-2x1.jpg"
+      />
     </div>
   );
 };
