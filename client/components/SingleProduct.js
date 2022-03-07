@@ -1,9 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
-import { getProduct } from "../store/product";
-import EditProduct from "./EditProduct";
+import React from 'react';
+import { connect } from 'react-redux';
+import { getProduct } from '../store/product';
+import EditProduct from './EditProduct';
 // added on branch feature/add-to-cart-button :
-import { getCart, addToCart } from "../store/cart";
+import { getCart, addToCart } from '../store/cart';
 
 class SingleProduct extends React.Component {
   constructor(props) {
@@ -37,8 +37,9 @@ class SingleProduct extends React.Component {
     const { product, cart, isLoggedIn, addToCart, userId } = this.props;
     if (isLoggedIn) {
       // USE CART ON STATE
-      window.localStorage.removeItem("cart");
+      window.localStorage.removeItem('cart');
       let cartItem = {
+        name: product.name,
         price: product.price,
         quantity: this.state.quantity,
         productId: product.id,
@@ -55,9 +56,9 @@ class SingleProduct extends React.Component {
       };
       let guestCartArray;
 
-      let guestCart = window.localStorage.getItem("cart");
+      let guestCart = window.localStorage.getItem('cart');
       if (guestCart) {
-        console.log("we do have a cart", guestCart);
+        console.log('we do have a cart', guestCart);
         guestCartArray = JSON.parse(guestCart);
       } else {
         guestCartArray = [];
@@ -73,7 +74,7 @@ class SingleProduct extends React.Component {
       else guestCartArray.push(orderItemObj);
       //
       let stringifiedCartArray = JSON.stringify(guestCartArray);
-      window.localStorage.setItem("cart", stringifiedCartArray);
+      window.localStorage.setItem('cart', stringifiedCartArray);
     }
   }
   // if user is logged in (isLoggedIn), then the add-to-cart handler

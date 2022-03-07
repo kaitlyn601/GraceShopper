@@ -14,6 +14,7 @@ class Cart extends React.Component {
   render() {
     let renderedDiv;
     const { cart, userId } = this.props;
+    console.log(cart);
     if (userId) {
       if (cart.length) {
         renderedDiv = (
@@ -21,7 +22,7 @@ class Cart extends React.Component {
             {cart.map((cartItem) => {
               return (
                 <div key={cartItem.id}>
-                  <h3>{cartItem.product.name}</h3>
+                  <h3>{cartItem.name}</h3>
                   <ul>Product Id: {cartItem.productId}</ul>
                   <ul>Quantity: {cartItem.quantity}</ul>
                   <ul>Price: {cartItem.price}</ul>

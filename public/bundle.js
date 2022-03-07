@@ -2571,13 +2571,14 @@ class Cart extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       cart,
       userId
     } = this.props;
+    console.log(cart);
 
     if (userId) {
       if (cart.length) {
         renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, cart.map(cartItem => {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             key: cartItem.id
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, cartItem.product.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Product Id: ", cartItem.productId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Quantity: ", cartItem.quantity), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Price: ", cartItem.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, cartItem.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Product Id: ", cartItem.productId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Quantity: ", cartItem.quantity), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Price: ", cartItem.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
             onClick: () => {
               this.props.deleteFromCart(userId, cartItem.id);
             }
@@ -2898,8 +2899,9 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
     if (isLoggedIn) {
       // USE CART ON STATE
-      window.localStorage.removeItem("cart");
+      window.localStorage.removeItem('cart');
       let cartItem = {
+        name: product.name,
         price: product.price,
         quantity: this.state.quantity,
         productId: product.id
@@ -2915,10 +2917,10 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
       };
       let guestCartArray;
-      let guestCart = window.localStorage.getItem("cart");
+      let guestCart = window.localStorage.getItem('cart');
 
       if (guestCart) {
-        console.log("we do have a cart", guestCart);
+        console.log('we do have a cart', guestCart);
         guestCartArray = JSON.parse(guestCart);
       } else {
         guestCartArray = [];
@@ -2931,7 +2933,7 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       if (existingItem) existingItem.quantity += this.state.quantity;else guestCartArray.push(orderItemObj); //
 
       let stringifiedCartArray = JSON.stringify(guestCartArray);
-      window.localStorage.setItem("cart", stringifiedCartArray);
+      window.localStorage.setItem('cart', stringifiedCartArray);
     }
   } // if user is logged in (isLoggedIn), then the add-to-cart handler
   // will add the items to the cart on state (an array)
