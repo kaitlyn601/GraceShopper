@@ -103,6 +103,10 @@ form div {
   height: 37px;
   font-size: 18px;
 }
+.button:hover {
+  color: #cfb56a;
+  cursor: pointer;
+}
 /* Footer */
 
 .footer {
