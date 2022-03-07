@@ -42,8 +42,12 @@ class Cart extends React.Component {
                   </button>
                   <button
                     onClick={() => {
-                      cartItem.quantity--;
-                      this.props.editCartItem(userId, cartItem);
+                      if (cartItem.quantity > 1) {
+                        cartItem.quantity--;
+                        this.props.editCartItem(userId, cartItem);
+                      } else {
+                        this.props.deleteFromCart(userId, cartItem.id);
+                      }
                     }}
                   >
                     -
