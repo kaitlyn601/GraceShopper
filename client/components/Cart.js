@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getCart, deleteFromCart, editCartItem } from '../store/cart';
 
 class Cart extends React.Component {
@@ -48,7 +49,9 @@ class Cart extends React.Component {
               return (
                 <div key={cartItem.id}>
                   <h3>{cartItem.name}</h3>
-                  <img src={cartItem.imageURL} height="150px" width="150px" />
+                  <Link to={`/products/${cartItem.productId}`}>
+                    <img src={cartItem.imageURL} height="150px" width="150px" />
+                  </Link>
                   <ul>Quantity: {cartItem.quantity}</ul>
                   <ul>Price: {cartItem.price}</ul>
                   <button
