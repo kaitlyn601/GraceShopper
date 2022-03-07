@@ -9,6 +9,7 @@ import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
 import SingleUser from "./components/SingleUser";
 import AllUsers from "./components/AllUsers";
+import ConfirmationPage from "./components/ConfirmationPage";
 /**
  * COMPONENT
  */
@@ -30,6 +31,7 @@ class Routes extends Component {
             <Route path="/users/:id" component={SingleUser} />
             <Route path="/home" component={Home} />
             <Route path="/cart" component={Cart} />
+            <Route path="/confirmation" component={ConfirmationPage} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -41,6 +43,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/cart" component={Cart} />
+            <Route path="/confirmation" component={ConfirmationPage} />
           </Switch>
         )}
       </div>
