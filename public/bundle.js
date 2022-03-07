@@ -2592,12 +2592,16 @@ class Cart extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, cart.map(cartItem => {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             key: cartItem.id
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, cartItem.product.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Product Id: ", cartItem.productId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Quantity: ", cartItem.quantity), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Price: ", cartItem.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Delete Item"));
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, cartItem.product.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Product Id: ", cartItem.productId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Quantity: ", cartItem.quantity), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, "Price: ", cartItem.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+            onClick: () => {
+              this.props.deleteFromCart(userId, cartItem.id);
+            }
+          }, "Delete Item"));
         }));
       } else renderedDiv = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Cart is Empty!");
     } else {
       // window.localStorage.removeItem("cart");
-      let guestCart = window.localStorage.getItem("cart");
+      let guestCart = window.localStorage.getItem('cart');
 
       if (guestCart) {
         const guestCartArray = JSON.parse(guestCart);
@@ -2621,7 +2625,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__.getCart)(id))
+    getCart: id => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__.getCart)(id)),
+    deleteFromCart: (userId, itemId) => dispatch((0,_store_cart__WEBPACK_IMPORTED_MODULE_2__.deleteFromCart)(userId, itemId))
   };
 };
 
@@ -3530,16 +3535,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "_getCart": () => (/* binding */ _getCart),
 /* harmony export */   "_addToCart": () => (/* binding */ _addToCart),
+/* harmony export */   "_deleteFromCart": () => (/* binding */ _deleteFromCart),
 /* harmony export */   "getCart": () => (/* binding */ getCart),
 /* harmony export */   "addToCart": () => (/* binding */ addToCart),
+/* harmony export */   "deleteFromCart": () => (/* binding */ deleteFromCart),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
- // ACTION TYPE
+ // ACTION CONSTANTS
 
 const GET_CART = 'GET_CART';
-const ADD_TO_CART = 'ADD_TO_CART'; // ACTION CREATORS
+const ADD_TO_CART = 'ADD_TO_CART';
+const DELETE_FROM_CART = 'DELETE_FROM_CART';
+const EDIT_CART_ITEM = 'EDIT_CART_ITEM'; // ACTION CREATORS
 
 const _getCart = cart => {
   return {
@@ -3550,6 +3559,12 @@ const _getCart = cart => {
 const _addToCart = cartItem => {
   return {
     type: ADD_TO_CART,
+    cartItem
+  };
+};
+const _deleteFromCart = cartItem => {
+  return {
+    type: DELETE_FROM_CART,
     cartItem
   };
 }; // THUNK CREATORS
@@ -3577,6 +3592,18 @@ const addToCart = (id, cartItem) => {
       console.log(error);
     }
   };
+};
+const deleteFromCart = (userId, itemId) => {
+  return async dispatch => {
+    try {
+      const {
+        data: cartItem
+      } = await axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](`/api/users/${userId}/cart/${itemId}`);
+      dispatch(_deleteFromCart(cartItem));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }; // REDUCER
 
 const cartReducer = (state = [], action) => {
@@ -3586,6 +3613,9 @@ const cartReducer = (state = [], action) => {
 
     case ADD_TO_CART:
       return [...state, action.cartItem];
+
+    case DELETE_FROM_CART:
+      return state.filter(cartItem => cartItem.id !== action.cartItem.id);
 
     default:
       return state;
