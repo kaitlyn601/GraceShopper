@@ -48,30 +48,30 @@ class AllProducts extends React.Component {
             powder are even greater.
           </p>
         </div>
-        <div className="products-container">
-          <div className="filter-box">
-            <h4>Chocolate Type</h4>
-            <ul>
-              <li>Milk Chocolate</li>
-              <li>Dark Chocolate</li>
-              <li>Exotic Chocolate</li>
-            </ul>
-            <div className="sort">
-              <label htmlFor="sort">Sort By: </label>
-              <select
-                className="sort"
-                aria-label="Default select example"
-                name="AlphabeticalOrder"
-                /*  onChange={(e) => setSort(e.target.value)}
+        <div className="filter-box">
+          <h4>Chocolate Type</h4>
+          <ul>
+            <li>Milk Chocolate</li>
+            <li>Dark Chocolate</li>
+            <li>Exotic Chocolate</li>
+          </ul>
+          <div className="sort">
+            <label htmlFor="sort">Sort By: </label>
+            <select
+              className="sort"
+              aria-label="Default select example"
+              name="AlphabeticalOrder"
+              /*  onChange={(e) => setSort(e.target.value)}
             value={sort} */
-              >
-                <option value="A-Z">A-Z</option>
-                <option value="Z-A">Z-A</option>
-                <option value="priceLowToHigh">Price Low - High</option>
-                <option value="priceHighToLow">Price High - Low</option>
-              </select>
-            </div>
+            >
+              <option value="A-Z">A-Z</option>
+              <option value="Z-A">Z-A</option>
+              <option value="priceLowToHigh">Price Low - High</option>
+              <option value="priceHighToLow">Price High - Low</option>
+            </select>
           </div>
+        </div>
+        <div className="products-container">
           <div className="grid-container">
             {/* if user type is Admin, then also render a Delete button for each product : */}
             {products.map((product) => {
@@ -82,7 +82,13 @@ class AllProducts extends React.Component {
                     <h4 className="product-name">{product.name}</h4>
                     <p className="price"> $ {product.price / 100}</p>
                   </Link>
-                  <button className="addtobag-btn">Add to bag</button>
+                  <button
+                    type="button"
+                    onClick={this.handleAddToCart}
+                    className="addtobag-btn"
+                  >
+                    Add to bag
+                  </button>
 
                   {this.props.isAdmin ? (
                     <button
