@@ -107,8 +107,8 @@ class SingleProduct extends React.Component {
           <img src={product.imageURL} />
         </div>
         <div className="info-container">
-          <h2>{product.name}</h2>
-          <h2>{product.price}</h2>
+          <h2 className="product-name-single">{product.name}</h2>
+          <h2 className="product-price-single">${product.price / 100}</h2>
           <p>{product.description}</p>
           <div>
             <label>Quantity</label>

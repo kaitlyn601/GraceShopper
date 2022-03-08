@@ -352,6 +352,19 @@ form div {
 .addtobag-btn2:active {
   transform: translateY(1px);
 }
+.product-name-single {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.product-price-single {
+  color: #3e1152;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 /* Footer */
 
 .footer {
