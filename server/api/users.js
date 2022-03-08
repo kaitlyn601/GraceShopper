@@ -3,11 +3,13 @@ const {
   models: { User, Order, OrderItem },
 } = require("../db");
 const Product = require("../db/models/Product");
+const { isAdmin, requireToken } = require("./gateKeepingMiddleware");
 module.exports = router;
 
 // GET /api/users
 router.get("/", async (req, res, next) => {
   try {
+    console.log(requireToken);
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
       // users' passwords are encrypted, it won't help if we just
