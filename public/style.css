@@ -330,6 +330,22 @@ form div {
 .info-container {
   width: 50%;
 }
+.addtobag-btn2 {
+  background-color: #3d1152;
+  color: white;
+  width: 50%;
+  text-align: center;
+  min-height: 3.6em;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.addtobag-btn2:hover {
+  cursor: pointer;
+}
+.addtobag-btn2:active {
+  transform: translateY(1px);
+}
 /* Footer */
 
 .footer {

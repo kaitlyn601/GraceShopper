@@ -5,13 +5,13 @@ import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <header className="header">
-    <a href="#">
+    <Link to="/home">
       <img
         class="logo-img"
         alt="logo"
         src="https://cdn.shopify.com/s/files/1/0012/8660/2848/files/logo-horizontal_190x.png?v=1546919365"
       />
-    </a>
+    </Link>
     <nav className="main-nav">
       {isLoggedIn ? (
         <ul className="main-nav-list">

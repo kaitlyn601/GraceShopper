@@ -118,8 +118,12 @@ class SingleProduct extends React.Component {
             <button onClick={this.IncrementItem}>+</button>
           </div>
 
-          <button type="button" onClick={this.handleAddToCart}>
-            ADD TO CART
+          <button
+            className="addtobag-btn2"
+            type="button"
+            onClick={this.handleAddToCart}
+          >
+            ADD TO BAG
           </button>
         </div>
 
