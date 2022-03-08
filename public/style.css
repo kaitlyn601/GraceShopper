@@ -272,14 +272,20 @@ form div {
   position: relative;
   width: 340px;
 }
-.filter-box {
+.filter-container {
   margin-top: 80px;
-  flex: 0 0 130px;
+  display: flex;
+  justify-content: end;
+  padding-right: 80px;
 }
-.filter-box h4 {
-  color: #3e1152;
-  letter-spacing: 0.85pt;
-  font-family: "Gotham";
+.filter-box {
+  display: flex;
+}
+.label {
+  color: #57206e;
+}
+.filter {
+  padding-right: 15px;
 }
 .product-name {
   color: black;
