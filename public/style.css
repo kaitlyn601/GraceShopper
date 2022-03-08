@@ -33,7 +33,8 @@ form div {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: black;
+  background-color: #b7a2cd;
+  width: 100%;
 }
 .logo-img {
   height: 150px;
@@ -59,7 +60,7 @@ form div {
 
 .main-nav-link:hover,
 .main-nav-link:active {
-  color: #cfb56a;
+  color: #3e1152;
 }
 /* Home */
 .welcome {
@@ -99,28 +100,105 @@ form div {
 .button {
   width: 100%;
   color: white;
-  background-color: black;
+  background-color: #3e1152;
   height: 37px;
   font-size: 18px;
 }
 .button:hover {
-  color: #cfb56a;
   cursor: pointer;
 }
 /* Product */
+.products {
+  padding: 0 60px;
+  width: 100%;
+}
+.product-header {
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+}
+.header-text {
+  font-family: "Playfair Display", serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 300;
+  color: #3e1152;
+  font-size: 20px;
+  padding-top: 45px;
+  margin-bottom: 15px;
+}
+.text {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.025em;
+  line-height: 1.7;
+}
+.header-img {
+  width: 100%;
+  height: 25vh;
+  background-size: cover;
+  background-position: top;
+}
 .grid-container {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr 1fr 1fr;
+  margin: 30px;
+  padding: 25px;
+}
+.products-container {
+  display: flex;
 }
 .product-container {
+  padding: 20px;
+  position: relative;
 }
+.filter-box {
+  margin-top: 80px;
+  flex: 0 0 130px;
+}
+.filter-box h4 {
+  color: #3e1152;
+  letter-spacing: 0.85pt;
+  font-family: "Gotham";
+}
+.product-name {
+  color: black;
+  margin-bottom: 15px;
+}
+.price {
+  color: #3e1152;
+}
+.addtobag-btn {
+  background-color: #3d1152;
+  opacity: 0;
+  color: white;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 110px;
+  left: 30px;
+  width: 60%;
+  text-align: center;
+  min-height: 4em;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+.addtobag-btn:hover {
+  background-color: white;
+  color: #3d1152;
+  border-color: #3d1152;
+  opacity: 1;
+  cursor: pointer;
+}
+.addtobag-btn:active {
+  transform: translateY(1px);
+}
+
 /* Footer */
 
 .footer {
   padding: 2.8rem 0;
   border-top: 1px solid #eee;
-  background-color: black;
+  background-color: #3e1152;
 }
 
 .grid--footer {
@@ -162,7 +240,7 @@ form div {
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 2rem;
-  color: #cfb56a;
+  color: White;
 }
 
 .contacts {
@@ -186,11 +264,11 @@ form div {
 .footer-link:visited {
   text-decoration: none;
   font-size: 1.2rem;
-  color: #767676;
+  color: white;
   transition: all 0.3s;
 }
 
 .footer-link:hover,
 .footer-link:active {
-  color: #cfb56a;
+  color: #9751b4;
 }
