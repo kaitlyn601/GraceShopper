@@ -13,25 +13,23 @@ export const Home = (props) => {
       <div>
         <h3 className="welcome">Welcome, {username ? username : "Guest!"}</h3>
         <img
-          class="home-img"
+          className="home-img"
           alt="home-img"
           src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/vosges-chocolate-1636570022.png"
         />
       </div>
-      <div class="text-box">
-        <h1 class="heading-primary">
-          <span class="heading-primary-main">15% off</span>
-          <h2 class="heading-primary-main">comfort</h2>
-          <h2 class="heading-primary-main">foods</h2>
+      <div className="text-box">
+        <div className="heading-primary">
+          <span className="heading-primary-main">15% off</span>
+          <h2 className="heading-primary-main">comfort</h2>
+          <h2 className="heading-primary-main">foods</h2>
 
-          <span class="heading-primary-sub">
+          <span className="heading-primary-sub">
             <i>with</i> code CRAVINGS
           </span>
-        </h1>
-        <Link to="/products">
-          <a href="" class="btn btn-white btn-animated">
-            Shop Now
-          </a>
+        </div>
+        <Link to="/products" className="btn btn-white btn-animated">
+          Shop Now
         </Link>
       </div>
     </header>
