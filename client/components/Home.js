@@ -11,7 +11,7 @@ export const Home = (props) => {
   return (
     <header className="home-header">
       <div>
-        <h3 className="welcome">Welcome, {username}</h3>
+        <h3 className="welcome">Welcome, {username ? username : "Guest"}</h3>
         <img
           class="home-img"
           alt="home-img"
