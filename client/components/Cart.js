@@ -1,14 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getCart, deleteFromCart, editCartItem } from "../store/cart";
+
+import {
+  getCart,
+  deleteFromCart,
+  editCartItem,
+  updateCart,
+} from "../store/cart";
+
+
 import { Link } from "react-router-dom";
+
 
 class Cart extends React.Component {
   constructor() {
     super();
     this.state = { guestCartArray: [] };
     this.handleGuestDelete = this.handleGuestDelete.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this);
     this.handleGuestChangeQty = this.handleGuestChangeQty.bind(this);
+
   }
 
   async componentDidMount() {
@@ -22,6 +33,10 @@ class Cart extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.userId != this.props.userId)
       this.props.getCart(this.props.userId);
+  }
+
+  handleCheckout() {
+    this.props.updateCart(this.props.userId);
   }
 
   async handleGuestDelete(productId) {
@@ -99,6 +114,7 @@ class Cart extends React.Component {
                 </div>
               );
             })}
+            <button onClick={() => this.handleCheckout()}>Checkout</button>
           </div>
         );
       } else renderedDiv = <div>Cart is Empty!</div>;
@@ -175,6 +191,7 @@ const mapDispatch = (dispatch) => {
       dispatch(deleteFromCart(userId, itemId)),
     editCartItem: (userId, cartItem) =>
       dispatch(editCartItem(userId, cartItem)),
+    updateCart: (id) => dispatch(updateCart(id)),
   };
 };
 

@@ -9,7 +9,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
       <img
         class="logo-img"
         alt="logo"
-        src="https://images-platform.99static.com//fiBHQGzCOM4ttyZ7rpwTwhXP4yw=/178x0:1183x1006/fit-in/500x500/99designs-contests-attachments/89/89528/attachment_89528749"
+        src="https://cdn.shopify.com/s/files/1/0012/8660/2848/files/logo-horizontal_190x.png?v=1546919365"
       />
     </a>
     <nav className="main-nav">
@@ -31,7 +31,6 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
               Cart
             </Link>
           </li>
-
           {isAdmin ? (
             <li>
               <Link className="main-nav-link" to="/users">
