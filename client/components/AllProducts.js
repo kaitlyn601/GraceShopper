@@ -1,16 +1,27 @@
-import React from "react";
-import { connect } from "react-redux";
-import AddProduct from "./AddProduct";
-import { Link } from "react-router-dom";
-import { getProducts, deleteProduct } from "../store/allProducts";
+import React from 'react';
+import { connect } from 'react-redux';
+import AddProduct from './AddProduct';
+import { Link } from 'react-router-dom';
+import { getProducts, deleteProduct } from '../store/allProducts';
 
 class AllProducts extends React.Component {
   constructor() {
     super();
+    this.state = {
+      filter: 'all',
+      sort: 'none',
+    };
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     this.props.loadAllProducts();
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
   }
 
   async handleDelete(id) {
@@ -20,8 +31,53 @@ class AllProducts extends React.Component {
 
   render() {
     if (!this.props.products.length) return <div>Loading</div>;
+    let { products } = this.props;
 
-    const { products } = this.props;
+    //---Sort Products
+    switch (this.state.sort) {
+      case 'priceDescending':
+        products = products.sort((p1, p2) => {
+          return p2.price - p1.price;
+        });
+        break;
+      case 'priceAscending':
+        products = products.sort((p1, p2) => {
+          return p1.price - p2.price;
+        });
+        break;
+      case 'alpha':
+        products = products.sort((p1, p2) => {
+          return p1.name.localeCompare(p2.name);
+        });
+        break;
+      case 'alphaReverse':
+        products = products.sort((p1, p2) => {
+          return p2.name.localeCompare(p1.name);
+        });
+        break;
+      case 'none':
+      default:
+        products = this.props.products;
+    }
+
+    //---Filter Products
+    switch (this.state.filter) {
+      case 'milk':
+        products = products.filter((product) => product.type === 'milk');
+        break;
+      case 'dark':
+        products = products.filter((product) => product.type === 'dark');
+        break;
+      case 'exotic':
+        products = products.filter((product) => product.type === 'exotic');
+        break;
+      case 'assorted':
+        products = products.filter((product) => product.type === 'assorted');
+        break;
+      case 'all':
+      default:
+        products = this.props.products;
+    }
 
     return (
       // Once we have created SingleProduct view component :
@@ -51,24 +107,31 @@ class AllProducts extends React.Component {
         <div className="products-container">
           <div className="filter-box">
             <h4>Chocolate Type</h4>
-            <ul>
-              <li>Milk Chocolate</li>
-              <li>Dark Chocolate</li>
-              <li>Exotic Chocolate</li>
-            </ul>
+            <label htmlFor="filter">Filter By: </label>
+            <select
+              name="filter"
+              value={this.state.filter}
+              onChange={(e) => this.handleChange(e)}
+            >
+              <option value="all">All</option>
+              <option value="milk">Milk Chocolate</option>
+              <option value="dark">Dark Chocolate</option>
+              <option value="exotic">Exotic Chocolate</option>
+              <option value="assorted">Assorted Chocolate</option>
+            </select>
             <div className="sort">
               <label htmlFor="sort">Sort By: </label>
               <select
                 className="sort"
                 aria-label="Default select example"
-                name="AlphabeticalOrder"
-                /*  onChange={(e) => setSort(e.target.value)}
-            value={sort} */
+                name="sort"
+                onChange={(e) => this.handleChange(e)}
               >
-                <option value="A-Z">A-Z</option>
-                <option value="Z-A">Z-A</option>
-                <option value="priceLowToHigh">Price Low - High</option>
-                <option value="priceHighToLow">Price High - Low</option>
+                <option value="none">None</option>
+                <option value="alpha">A-Z</option>
+                <option value="alphaReverse">Z-A</option>
+                <option value="priceAscending">Price (Low - High)</option>
+                <option value="priceDescending">Price (High - Low)</option>
               </select>
             </div>
           </div>
