@@ -20,7 +20,10 @@ export const Home = (props) => {
       </div>
       <div class="text-box">
         <h1 class="heading-primary">
-          <span class="heading-primary-main">15% off comfort foods</span>
+          <span class="heading-primary-main">15% off</span>
+          <h2 class="heading-primary-main">comfort</h2>
+          <h2 class="heading-primary-main">foods</h2>
+
           <span class="heading-primary-sub">
             <i>with</i> code CRAVINGS
           </span>

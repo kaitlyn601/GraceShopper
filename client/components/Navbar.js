@@ -5,13 +5,13 @@ import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <header className="header">
-    <a href="#">
+    <Link to="/home">
       <img
         class="logo-img"
         alt="logo"
         src="https://cdn.shopify.com/s/files/1/0012/8660/2848/files/logo-horizontal_190x.png?v=1546919365"
       />
-    </a>
+    </Link>
     <nav className="main-nav">
       {isLoggedIn ? (
         <ul className="main-nav-list">
@@ -28,7 +28,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           </li>
           <li>
             <Link className="main-nav-link" to="/cart">
-              Cart
+              <span class="material-icons-outlined">shopping_bag</span>
             </Link>
           </li>
           {isAdmin ? (
@@ -55,8 +55,10 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           <Link className="main-nav-link" to="/products">
             Chocolate
           </Link>
-          <Link className="main-nav-link" to="/cart">
-            Cart
+          <Link className="main-nav-link cart-logo" to="/cart">
+            <span id="cart" class="material-icons-outlined">
+              shopping_bag
+            </span>
           </Link>
           <Link className="main-nav-link" to="/login">
             Login
