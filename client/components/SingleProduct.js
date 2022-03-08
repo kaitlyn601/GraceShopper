@@ -1,9 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getProduct } from '../store/product';
-import EditProduct from './EditProduct';
+import React from "react";
+import { connect } from "react-redux";
+import { getProduct } from "../store/product";
+import EditProduct from "./EditProduct";
 // added on branch feature/add-to-cart-button :
-import { getCart, addToCart } from '../store/cart';
+import { getCart, addToCart } from "../store/cart";
 
 class SingleProduct extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class SingleProduct extends React.Component {
     const { product, cart, isLoggedIn, addToCart, userId } = this.props;
     if (isLoggedIn) {
       // USE CART ON STATE
-      window.localStorage.removeItem('cart');
+      window.localStorage.removeItem("cart");
       let cartItem = {
         name: product.name,
         price: product.price,
@@ -59,9 +59,9 @@ class SingleProduct extends React.Component {
       };
       let guestCartArray;
 
-      let guestCart = window.localStorage.getItem('cart');
+      let guestCart = window.localStorage.getItem("cart");
       if (guestCart) {
-        console.log('we do have a cart', guestCart);
+        console.log("we do have a cart", guestCart);
         guestCartArray = JSON.parse(guestCart);
       } else {
         guestCartArray = [];
@@ -77,7 +77,7 @@ class SingleProduct extends React.Component {
       else guestCartArray.push(orderItemObj);
       //
       let stringifiedCartArray = JSON.stringify(guestCartArray);
-      window.localStorage.setItem('cart', stringifiedCartArray);
+      window.localStorage.setItem("cart", stringifiedCartArray);
     }
   }
   // if user is logged in (isLoggedIn), then the add-to-cart handler
@@ -103,34 +103,36 @@ class SingleProduct extends React.Component {
     if (!product.id) return <div>Loading</div>;
     return (
       <div className="single-page-container">
-        <div className="top-container">
-          <div className="img-container">
-            <img src={product.imageURL} />
-          </div>
-          <div className="info-container">
-            <h2>{product.name}</h2>
-            <h2>{product.price}</h2>
-            <div>
-              <label>Quantity</label>
-              <button onClick={this.DecrementItem}>-</button>
+        <div className="img-container">
+          <img src={product.imageURL} />
+        </div>
+        <div className="info-container">
+          <h2 className="product-name-single">{product.name}</h2>
+          <h2 className="product-price-single">${product.price / 100}</h2>
+          <p className="description">{product.description}</p>
+          <div className="quantity-container">
+            <label>QUANTITY</label>
+            <div className="quantity-btn">
+              <button className="decre" onClick={this.DecrementItem}>
+                -
+              </button>
               {/* <input value={this.state.quantity} /> */}
-              <span> {this.state.quantity} </span>
-              <button onClick={this.IncrementItem}>+</button>
+              <h5 className="quantity-num"> {this.state.quantity} </h5>
+              <button className="incre" onClick={this.IncrementItem}>
+                +
+              </button>
             </div>
+          </div>
 
-            <button type="button" onClick={this.handleAddToCart}>
-              ADD TO CART
-            </button>
-          </div>
+          <button
+            className="addtobag-btn2"
+            type="button"
+            onClick={this.handleAddToCart}
+          >
+            ADD TO BAG
+          </button>
         </div>
-        <div className="description-container">
-          <div>
-            <h3>DESCRIPTION</h3>
-          </div>
-          <div>
-            <p>{product.description}</p>
-          </div>
-        </div>
+
         {this.props.isAdmin ? (
           <EditProduct currentProduct={this.props.product} />
         ) : (

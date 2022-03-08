@@ -1,15 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import AddProduct from './AddProduct';
-import { Link } from 'react-router-dom';
-import { getProducts, deleteProduct } from '../store/allProducts';
+import React from "react";
+import { connect } from "react-redux";
+import AddProduct from "./AddProduct";
+import { Link } from "react-router-dom";
+import { getProducts, deleteProduct } from "../store/allProducts";
 
 class AllProducts extends React.Component {
   constructor() {
     super();
     this.state = {
-      filter: 'all',
-      sort: 'none',
+      filter: "all",
+      sort: "none",
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -35,46 +35,46 @@ class AllProducts extends React.Component {
 
     //---Sort Products
     switch (this.state.sort) {
-      case 'priceDescending':
+      case "priceDescending":
         products = products.sort((p1, p2) => {
           return p2.price - p1.price;
         });
         break;
-      case 'priceAscending':
+      case "priceAscending":
         products = products.sort((p1, p2) => {
           return p1.price - p2.price;
         });
         break;
-      case 'alpha':
+      case "alpha":
         products = products.sort((p1, p2) => {
           return p1.name.localeCompare(p2.name);
         });
         break;
-      case 'alphaReverse':
+      case "alphaReverse":
         products = products.sort((p1, p2) => {
           return p2.name.localeCompare(p1.name);
         });
         break;
-      case 'none':
+      case "none":
       default:
         products = this.props.products;
     }
 
     //---Filter Products
     switch (this.state.filter) {
-      case 'milk':
-        products = products.filter((product) => product.type === 'milk');
+      case "milk":
+        products = products.filter((product) => product.type === "milk");
         break;
-      case 'dark':
-        products = products.filter((product) => product.type === 'dark');
+      case "dark":
+        products = products.filter((product) => product.type === "dark");
         break;
-      case 'exotic':
-        products = products.filter((product) => product.type === 'exotic');
+      case "exotic":
+        products = products.filter((product) => product.type === "exotic");
         break;
-      case 'assorted':
-        products = products.filter((product) => product.type === 'assorted');
+      case "assorted":
+        products = products.filter((product) => product.type === "assorted");
         break;
-      case 'all':
+      case "all":
       default:
         products = this.props.products;
     }
@@ -104,23 +104,30 @@ class AllProducts extends React.Component {
             powder are even greater.
           </p>
         </div>
-        <div className="products-container">
+
+        <div className="filter-container">
           <div className="filter-box">
-            <h4>Chocolate Type</h4>
-            <label htmlFor="filter">Filter By: </label>
-            <select
-              name="filter"
-              value={this.state.filter}
-              onChange={(e) => this.handleChange(e)}
-            >
-              <option value="all">All</option>
-              <option value="milk">Milk Chocolate</option>
-              <option value="dark">Dark Chocolate</option>
-              <option value="exotic">Exotic Chocolate</option>
-              <option value="assorted">Assorted Chocolate</option>
-            </select>
+            <div className="filter">
+              <label className="label" htmlFor="filter">
+                Filter By:{" "}
+              </label>
+              <select
+                name="filter"
+                value={this.state.filter}
+                onChange={(e) => this.handleChange(e)}
+              >
+                <option value="all">All</option>
+                <option value="milk">Milk Chocolate</option>
+                <option value="dark">Dark Chocolate</option>
+                <option value="exotic">Exotic Chocolate</option>
+                <option value="assorted">Assorted Chocolate</option>
+              </select>
+            </div>
+
             <div className="sort">
-              <label htmlFor="sort">Sort By: </label>
+              <label className="label" htmlFor="sort">
+                Sort By:{" "}
+              </label>
               <select
                 className="sort"
                 aria-label="Default select example"
@@ -135,6 +142,9 @@ class AllProducts extends React.Component {
               </select>
             </div>
           </div>
+        </div>
+
+        <div className="products-container">
           <div className="grid-container">
             {/* if user type is Admin, then also render a Delete button for each product : */}
             {products.map((product) => {
@@ -145,7 +155,13 @@ class AllProducts extends React.Component {
                     <h4 className="product-name">{product.name}</h4>
                     <p className="price"> $ {product.price / 100}</p>
                   </Link>
-                  <button className="addtobag-btn">Add to bag</button>
+                  <button
+                    type="button"
+                    onClick={this.handleAddToCart}
+                    className="addtobag-btn"
+                  >
+                    Add to bag
+                  </button>
 
                   {this.props.isAdmin ? (
                     <button
