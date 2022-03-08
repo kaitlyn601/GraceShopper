@@ -33,7 +33,7 @@ const isAdmin = (req, res, next) => {
 };
 
 // export middleware to be used in user.js --> user express routes
-module.export = {
+module.exports = {
   requireToken,
   isAdmin,
 };

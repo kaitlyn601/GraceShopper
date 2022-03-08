@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const TOKEN = "token";
 //---------ACTION CONSTANT
 const GET_USERS = "GET_USERS";
 
@@ -15,7 +16,14 @@ const _getUsers = (users) => {
 export const getUsers = () => {
   return async (dispatch) => {
     try {
-      const { data: users } = await axios.get("/api/users");
+      //taking token from local storage
+      const token = window.localStorage.getItem(TOKEN);
+      const { data: users } = await axios.get("/api/users", {
+        headers: {
+          // send it back in req, as header with key
+          authorization: token, // of authorization
+        }, //to use in routes
+      });
       dispatch(_getUsers(users));
     } catch (error) {
       console.log(error);
