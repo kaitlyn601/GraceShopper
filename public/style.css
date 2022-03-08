@@ -76,14 +76,14 @@ form div {
   position: absolute;
   left: 50%;
   top: 40%;
-  transform: translate(-5%, -60%);
+  transform: translate(-15%, -65%);
   text-align: center;
 }
 .heading-primary {
   color: #3a0e4d;
   text-transform: uppercase;
   backface-visibility: hidden;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 .heading-primary-main {
   display: block;
