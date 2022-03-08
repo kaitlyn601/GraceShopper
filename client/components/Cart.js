@@ -137,11 +137,15 @@ class Cart extends React.Component {
       if (this.state.guestCartArray.length) {
         renderedDiv = (
           <div>
-            Here is your guest cart!
+            <h1>Guest Cart</h1>
+            <br></br>
+            <br></br>
+
             {this.state.guestCartArray.map((cartItem) => {
               this.state.total = cartItem.price * cartItem.quantity;
               return (
                 <div key={cartItem.productId}>
+                  <br></br>
                   <Link to={`/products/${cartItem.productId}`}>
                     <h3>{cartItem.name}</h3>
                   </Link>
@@ -168,6 +172,8 @@ class Cart extends React.Component {
                   >
                     -
                   </button>
+                  <br></br>
+                  <br></br>
                 </div>
               );
             })}

@@ -11,19 +11,44 @@ class AllUsers extends React.Component {
   render() {
     const { users } = this.props;
     return (
-      <div>
-        {this.props.users.length < 1
-          ? "There are currently no users"
-          : users.map((user) => {
-              return (
-                <div key={user.id}>
-                  <Link to={`/users/${user.id}`}>
-                    <h3>Username: {user.username}</h3>
-                    <h3>User Type: {user.isAdmin ? "Admin" : "User"}</h3>
-                  </Link>
-                </div>
-              );
-            })}
+      <div id="admin-portal-all-users">
+        <br></br>
+        <h1>ADMIN PORTAL</h1>
+        <br></br>
+        <br></br>
+        <h1>All Users</h1>
+        <br></br>
+        <br></br>
+        {this.props.users.length < 1 ? (
+          "There are currently no users"
+        ) : (
+          <table>
+            <tbody>
+              <tr>
+                <th>
+                  <h1>Username </h1>
+                </th>
+                <th>
+                  <h1>Type</h1>
+                </th>
+              </tr>
+              {users.map((user) => {
+                return (
+                  <tr key={user.id}>
+                    <td>
+                      <Link to={`/users/${user.id}`}>
+                        <h2>{user.username}</h2>
+                      </Link>
+                    </td>
+                    <td>
+                      <h2>{user.isAdmin ? "Admin" : "User"}</h2>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     );
   }

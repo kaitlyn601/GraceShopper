@@ -484,3 +484,26 @@ form div {
 .footer-link:active {
   color: #9751b4;
 }
+
+/* Tables for Admin */
+#admin-portal-all-users,
+#admin-portal-one-user {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(247, 244, 240, 0.872);
+  align-items: center;
+  width: 100%;
+}
+
+table {
+  padding: 10px;
+  font-family: "Rubik", sans-serif;
+  border: solid;
+  margin: 20px 20px 80px 20px;
+}
+
+th,
+tr {
+  padding: 10px;
+  text-align: center;
+}
