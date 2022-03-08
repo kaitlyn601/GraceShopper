@@ -9,6 +9,7 @@ class AllProducts extends React.Component {
     super();
     this.state = {
       filter: 'all',
+      sort: 'none',
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -30,8 +31,36 @@ class AllProducts extends React.Component {
 
   render() {
     if (!this.props.products.length) return <div>Loading</div>;
-
     let { products } = this.props;
+
+    //---Sort Products
+    switch (this.state.sort) {
+      case 'priceDescending':
+        products = products.sort((p1, p2) => {
+          return p2.price - p1.price;
+        });
+        break;
+      case 'priceAscending':
+        products = products.sort((p1, p2) => {
+          return p1.price - p2.price;
+        });
+        break;
+      case 'alpha':
+        products = products.sort((p1, p2) => {
+          return p1.name.localeCompare(p2.name);
+        });
+        break;
+      case 'alphaReverse':
+        products = products.sort((p1, p2) => {
+          return p2.name.localeCompare(p1.name);
+        });
+        break;
+      case 'none':
+      default:
+        products = this.props.products;
+    }
+
+    //---Filter Products
     switch (this.state.filter) {
       case 'milk':
         products = products.filter((product) => product.type === 'milk');
@@ -95,14 +124,14 @@ class AllProducts extends React.Component {
               <select
                 className="sort"
                 aria-label="Default select example"
-                name="AlphabeticalOrder"
-                /*  onChange={(e) => setSort(e.target.value)}
-            value={sort} */
+                name="sort"
+                onChange={(e) => this.handleChange(e)}
               >
-                <option value="A-Z">A-Z</option>
-                <option value="Z-A">Z-A</option>
-                <option value="priceLowToHigh">Price Low - High</option>
-                <option value="priceHighToLow">Price High - Low</option>
+                <option value="none">None</option>
+                <option value="alpha">A-Z</option>
+                <option value="alphaReverse">Z-A</option>
+                <option value="priceAscending">Price (Low - High)</option>
+                <option value="priceDescending">Price (High - Low)</option>
               </select>
             </div>
           </div>
