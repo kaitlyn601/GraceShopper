@@ -1,23 +1,14 @@
-<<<<<<< HEAD
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getCart, deleteFromCart, editCartItem } from '../store/cart';
-=======
-import React from "react";
-import { connect } from "react-redux";
 
 import {
   getCart,
   deleteFromCart,
   editCartItem,
   updateCart,
-} from "../store/cart";
+} from '../store/cart';
 
-
-import { Link } from "react-router-dom";
-
->>>>>>> main
+import { Link } from 'react-router-dom';
 
 class Cart extends React.Component {
   constructor() {
@@ -26,7 +17,6 @@ class Cart extends React.Component {
     this.handleGuestDelete = this.handleGuestDelete.bind(this);
     this.handleCheckout = this.handleCheckout.bind(this);
     this.handleGuestChangeQty = this.handleGuestChangeQty.bind(this);
-
   }
 
   async componentDidMount() {
@@ -34,6 +24,9 @@ class Cart extends React.Component {
     if (guestCart) {
       const guestCartArray = JSON.parse(guestCart);
       await this.setState({ guestCartArray });
+    }
+    if (this.props.userId) {
+      this.props.getCart(this.props.userId);
     }
   }
 
@@ -63,8 +56,8 @@ class Cart extends React.Component {
     // created updated array: inc or dec quantity property of specified product
     let guestCartArray = this.state.guestCartArray.filter((item) => {
       if (item.productId === productId) {
-        if (method === "increase") item.quantity++;
-        if (method === "decrease" && item.quantity > 0) item.quantity--;
+        if (method === 'increase') item.quantity++;
+        if (method === 'decrease' && item.quantity > 0) item.quantity--;
       }
       // This filtered array only returns items whose quantity is still > 0
       // so if a customer decreases quantity to zero, item is dropped from cart
@@ -74,7 +67,7 @@ class Cart extends React.Component {
     await this.setState({ guestCartArray });
     // and update the localStorage
     let stringifiedCartArray = JSON.stringify(guestCartArray);
-    window.localStorage.setItem("cart", stringifiedCartArray);
+    window.localStorage.setItem('cart', stringifiedCartArray);
   }
 
   render() {
@@ -149,14 +142,14 @@ class Cart extends React.Component {
                   </button>
                   <button
                     onClick={() =>
-                      this.handleGuestChangeQty(cartItem.productId, "increase")
+                      this.handleGuestChangeQty(cartItem.productId, 'increase')
                     }
                   >
                     +
                   </button>
                   <button
                     onClick={() =>
-                      this.handleGuestChangeQty(cartItem.productId, "decrease")
+                      this.handleGuestChangeQty(cartItem.productId, 'decrease')
                     }
                   >
                     -
@@ -172,7 +165,7 @@ class Cart extends React.Component {
             <br></br>
             <br></br>
             <h2>
-              Your Guest Cart is empty! Take a look at all of our luxurious{" "}
+              Your Guest Cart is empty! Take a look at all of our luxurious{' '}
               <Link to="/products">Products</Link> !
             </h2>
             <br></br>
