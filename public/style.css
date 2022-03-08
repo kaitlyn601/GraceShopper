@@ -74,9 +74,9 @@ form div {
 }
 .text-box {
   position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate(-15%, -65%);
+  left: 60%;
+  top: 38%;
+  transform: translate(-5%, -65%);
   text-align: center;
 }
 .heading-primary {
