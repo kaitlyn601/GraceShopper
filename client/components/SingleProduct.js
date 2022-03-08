@@ -109,13 +109,19 @@ class SingleProduct extends React.Component {
         <div className="info-container">
           <h2 className="product-name-single">{product.name}</h2>
           <h2 className="product-price-single">${product.price / 100}</h2>
-          <p>{product.description}</p>
-          <div>
-            <label>Quantity</label>
-            <button onClick={this.DecrementItem}>-</button>
-            {/* <input value={this.state.quantity} /> */}
-            <span> {this.state.quantity} </span>
-            <button onClick={this.IncrementItem}>+</button>
+          <p className="description">{product.description}</p>
+          <div className="quantity-container">
+            <label>QUANTITY</label>
+            <div className="quantity-btn">
+              <button className="decre" onClick={this.DecrementItem}>
+                -
+              </button>
+              {/* <input value={this.state.quantity} /> */}
+              <h5 className="quantity-num"> {this.state.quantity} </h5>
+              <button className="incre" onClick={this.IncrementItem}>
+                +
+              </button>
+            </div>
           </div>
 
           <button

@@ -28,7 +28,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           </li>
           <li>
             <Link className="main-nav-link" to="/cart">
-              Cart
+              <span class="material-icons-outlined">shopping_bag</span>
             </Link>
           </li>
           {isAdmin ? (
@@ -55,8 +55,10 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           <Link className="main-nav-link" to="/products">
             Chocolate
           </Link>
-          <Link className="main-nav-link" to="/cart">
-            Cart
+          <Link className="main-nav-link cart-logo" to="/cart">
+            <span id="cart" class="material-icons-outlined">
+              shopping_bag
+            </span>
           </Link>
           <Link className="main-nav-link" to="/login">
             Login
