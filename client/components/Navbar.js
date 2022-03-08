@@ -7,7 +7,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <header className="header">
     <Link to="/home">
       <img
-        class="logo-img"
+        className="logo-img"
         alt="logo"
         src="https://cdn.shopify.com/s/files/1/0012/8660/2848/files/logo-horizontal_190x.png?v=1546919365"
       />
@@ -28,7 +28,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           </li>
           <li>
             <Link className="main-nav-link" to="/cart">
-              <span class="material-icons-outlined">shopping_bag</span>
+              <span className="material-icons-outlined">shopping_bag</span>
             </Link>
           </li>
           {isAdmin ? (
@@ -56,7 +56,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
             Chocolate
           </Link>
           <Link className="main-nav-link cart-logo" to="/cart">
-            <span id="cart" class="material-icons-outlined">
+            <span id="cart" className="material-icons-outlined">
               shopping_bag
             </span>
           </Link>
