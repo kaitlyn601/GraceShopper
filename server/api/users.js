@@ -21,7 +21,7 @@ router.get("/", requireToken, isAdmin, async (req, res, next) => {
   }
 });
 // GET /api/users/:id
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", requireToken, isAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id, {
       include: [{ model: Order, include: { model: OrderItem } }],
@@ -48,7 +48,7 @@ router.get("/:id/orders", async (req, res, next) => {
 });
 
 // GET /api/users/:id/cart
-router.get("/:id/cart", async (req, res, next) => {
+router.get("/:id/cart", requireToken, async (req, res, next) => {
   try {
     const currentOrder = await Order.findOne({
       include: [{ model: OrderItem, include: [{ model: Product }] }],
