@@ -36,7 +36,15 @@ class Cart extends React.Component {
   }
 
   handleCheckout() {
-    this.props.updateCart(this.props.userId);
+    // if user is logged in
+    // then thunk will send PUT request to change that order status to fulfilled: TRUE
+    if (this.props.userId) this.props.updateCart(this.props.userId);
+    // if user is NOT logged in
+    // then clear local storage and local state - this.setState({ guestCartArray: [] })
+    else {
+      window.localStorage.removeItem("cart");
+      this.setState({ guestCartArray: [] });
+    }
   }
 
   async handleGuestDelete(productId) {
@@ -160,6 +168,9 @@ class Cart extends React.Component {
                 </div>
               );
             })}
+            <Link to="/confirmation">
+              <button onClick={() => this.handleCheckout()}>Checkout</button>
+            </Link>
           </div>
         );
       } else {
