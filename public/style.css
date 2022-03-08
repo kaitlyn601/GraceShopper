@@ -258,11 +258,6 @@ form div {
   background-position: top;
 }
 .grid-container {
-  /* display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 1fr 1fr 1fr;
-  margin: 30px;
-  padding: 25px; */
   grid-column: center-start / center-end;
   margin: 2rem 0;
   display: grid;
@@ -301,7 +296,7 @@ form div {
   text-transform: uppercase;
   position: absolute;
   bottom: 110px;
-  left: 30px;
+  left: 60px;
   width: 60%;
   text-align: center;
   min-height: 4em;
