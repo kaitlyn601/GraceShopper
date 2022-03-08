@@ -2,6 +2,8 @@ const router = require("express").Router();
 const {
   models: { Product },
 } = require("../db");
+const { requireToken, isAdmin } = require("./gatekeeper");
+
 module.exports = router;
 
 // GET /api/products
@@ -37,7 +39,7 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 // POST /api/products -> to make new product
-router.post("/", async (req, res, next) => {
+router.post("/", requireToken, isAdmin, async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body);
     res.status(201).json(newProduct);

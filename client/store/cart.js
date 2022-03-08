@@ -1,5 +1,6 @@
 import axios from "axios";
 // ACTION CONSTANTS
+const TOKEN = "token";
 const GET_CART = "GET_CART";
 const ADD_TO_CART = "ADD_TO_CART";
 const DELETE_FROM_CART = "DELETE_FROM_CART";
@@ -37,7 +38,13 @@ export const _editCartItem = (cartItem) => {
 export const getCart = (id) => {
   return async (dispatch) => {
     try {
-      const { data: cart } = await axios.get(`/api/users/${id}/cart`);
+      const token = window.localStorage.getItem(TOKEN);
+      const { data: cart } = await axios.get(`/api/users/${id}/cart`, {
+        headers: {
+          // send it back in req, as header with key
+          authorization: token, // of authorization
+        }, //to use in routes
+      });
       dispatch(_getCart(cart));
     } catch (err) {
       console.log(err);

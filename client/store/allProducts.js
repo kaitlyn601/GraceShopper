@@ -5,6 +5,7 @@ const GET_PRODUCTS = "GET_PRODUCTS";
 const EDIT_PRODUCT = "EDIT_PRODUCTS";
 const ADD_PRODUCT = "ADD_PRODUCT";
 const DELETED_PRODUCT = "DELETED_PRODUCT";
+const TOKEN = "token";
 
 //---------ACTION CREATORS
 const _getProducts = (products) => {
@@ -43,7 +44,13 @@ export const getProducts = () => {
 };
 
 export const addProductThunk = (product) => async (dispatch) => {
-  const { data: created } = await axios.post("/api/products", product);
+  const token = window.localStorage.getItem(TOKEN);
+  const { data: created } = await axios.post("/api/products", product, {
+    headers: {
+      // send it back in req, as header with key
+      authorization: token, // of authorization
+    }, //to use in routes
+  });
   dispatch(_addProduct(created));
 };
 
