@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 // ACTION CONSTANTS
-const GET_CART = 'GET_CART';
-const ADD_TO_CART = 'ADD_TO_CART';
-const DELETE_FROM_CART = 'DELETE_FROM_CART';
-const EDIT_CART_ITEM = 'EDIT_CART_ITEM';
+const GET_CART = "GET_CART";
+const ADD_TO_CART = "ADD_TO_CART";
+const DELETE_FROM_CART = "DELETE_FROM_CART";
+const EDIT_CART_ITEM = "EDIT_CART_ITEM";
 
 // ACTION CREATORS
 export const _getCart = (cart) => {
@@ -71,7 +71,15 @@ export const deleteFromCart = (userId, itemId) => {
     }
   };
 };
-
+export const updateCart = (userId) => {
+  return async () => {
+    try {
+      await axios.put(`/api/users/${userId}/cart`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 export const editCartItem = (userId, cartItem) => {
   return async (dispatch) => {
     try {

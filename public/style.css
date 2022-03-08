@@ -33,7 +33,8 @@ form div {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: black;
+  background-color: #b7a2cd;
+  width: 100%;
 }
 .logo-img {
   height: 150px;
@@ -59,14 +60,133 @@ form div {
 
 .main-nav-link:hover,
 .main-nav-link:active {
-  color: #cfb56a;
+  color: #3e1152;
 }
 /* Home */
+.home-header {
+  position: relative;
+}
 .welcome {
   text-align: end;
 }
 .home-img {
   width: 100%;
+}
+.text-box {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-15%, -65%);
+  text-align: center;
+}
+.heading-primary {
+  color: #3a0e4d;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+  margin-bottom: 40px;
+}
+.heading-primary-main {
+  display: block;
+  font-size: 48px;
+  font-weight: 400px;
+  letter-spacing: 25px;
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+}
+.heading-primary-sub {
+  display: block;
+  font-size: 20px;
+  font-weight: 700px;
+  letter-spacing: 5.4px;
+  animation: moveInRight 1s ease-out;
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  80% {
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  display: inline-block;
+  border-radius: 100px;
+  transition: all 0.2s;
+  position: relative;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.btn-white {
+  background-color: white;
+  color: #777;
+}
+
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 0.4s;
+}
+.btn-white::after {
+  background-color: #fff;
+}
+
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+.btn-animated {
+  animation: moveInBottom 0.5s ease-out 0.75s;
+  animation-fill-mode: backwards;
 }
 /* Sign-In */
 .sign-in {
@@ -99,20 +219,105 @@ form div {
 .button {
   width: 100%;
   color: white;
-  background-color: black;
+  background-color: #3e1152;
   height: 37px;
   font-size: 18px;
 }
 .button:hover {
-  color: #cfb56a;
   cursor: pointer;
 }
+/* Product */
+.products {
+  padding: 0 60px;
+  width: 100%;
+}
+.product-header {
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+}
+.header-text {
+  font-family: "Playfair Display", serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 300;
+  color: #3e1152;
+  font-size: 20px;
+  padding-top: 45px;
+  margin-bottom: 15px;
+}
+.text {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.025em;
+  line-height: 1.7;
+}
+.header-img {
+  width: 100%;
+  height: 25vh;
+  background-size: cover;
+  background-position: top;
+}
+.grid-container {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 30px;
+  padding: 25px;
+}
+.products-container {
+  display: flex;
+}
+.product-container {
+  padding: 20px;
+  position: relative;
+}
+.filter-box {
+  margin-top: 80px;
+  flex: 0 0 130px;
+}
+.filter-box h4 {
+  color: #3e1152;
+  letter-spacing: 0.85pt;
+  font-family: "Gotham";
+}
+.product-name {
+  color: black;
+  margin-bottom: 15px;
+}
+.price {
+  color: #3e1152;
+}
+.addtobag-btn {
+  background-color: #3d1152;
+  opacity: 0;
+  color: white;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 110px;
+  left: 30px;
+  width: 60%;
+  text-align: center;
+  min-height: 4em;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+.addtobag-btn:hover {
+  background-color: white;
+  color: #3d1152;
+  border-color: #3d1152;
+  opacity: 1;
+  cursor: pointer;
+}
+.addtobag-btn:active {
+  transform: translateY(1px);
+}
+
 /* Footer */
 
 .footer {
   padding: 2.8rem 0;
   border-top: 1px solid #eee;
-  background-color: black;
+  background-color: #3e1152;
 }
 
 .grid--footer {
@@ -154,7 +359,7 @@ form div {
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 2rem;
-  color: #cfb56a;
+  color: White;
 }
 
 .contacts {
@@ -178,11 +383,11 @@ form div {
 .footer-link:visited {
   text-decoration: none;
   font-size: 1.2rem;
-  color: #767676;
+  color: white;
   transition: all 0.3s;
 }
 
 .footer-link:hover,
 .footer-link:active {
-  color: #cfb56a;
+  color: #9751b4;
 }

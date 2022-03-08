@@ -1,17 +1,34 @@
+<<<<<<< HEAD
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCart, deleteFromCart, editCartItem } from '../store/cart';
+=======
+import React from "react";
+import { connect } from "react-redux";
+
+import {
+  getCart,
+  deleteFromCart,
+  editCartItem,
+  updateCart,
+} from "../store/cart";
+
+
+import { Link } from "react-router-dom";
+
+>>>>>>> main
 
 class Cart extends React.Component {
   constructor() {
     super();
-    // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
     this.state = { guestCartArray: [] };
     this.handleGuestDelete = this.handleGuestDelete.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this);
+    this.handleGuestChangeQty = this.handleGuestChangeQty.bind(this);
+
   }
 
-  // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
   async componentDidMount() {
     let guestCart = window.localStorage.getItem('cart');
     if (guestCart) {
@@ -25,7 +42,10 @@ class Cart extends React.Component {
       this.props.getCart(this.props.userId);
   }
 
-  // ADDED ON BRANCH "feature/RENDER-GUEST-CART"
+  handleCheckout() {
+    this.props.updateCart(this.props.userId);
+  }
+
   async handleGuestDelete(productId) {
     // created updated array, removing the chosen product
     let guestCartArray = this.state.guestCartArray.filter((item) => {
@@ -36,6 +56,25 @@ class Cart extends React.Component {
     // and update the localStorage
     let stringifiedCartArray = JSON.stringify(guestCartArray);
     window.localStorage.setItem('cart', stringifiedCartArray);
+  }
+
+  // ADDED with branch 'feature/top-off-guest-cart'
+  async handleGuestChangeQty(productId, method) {
+    // created updated array: inc or dec quantity property of specified product
+    let guestCartArray = this.state.guestCartArray.filter((item) => {
+      if (item.productId === productId) {
+        if (method === "increase") item.quantity++;
+        if (method === "decrease" && item.quantity > 0) item.quantity--;
+      }
+      // This filtered array only returns items whose quantity is still > 0
+      // so if a customer decreases quantity to zero, item is dropped from cart
+      return item.quantity > 0;
+    });
+    // update local state with this new array, so it re-renders
+    await this.setState({ guestCartArray });
+    // and update the localStorage
+    let stringifiedCartArray = JSON.stringify(guestCartArray);
+    window.localStorage.setItem("cart", stringifiedCartArray);
   }
 
   render() {
@@ -84,6 +123,7 @@ class Cart extends React.Component {
                 </div>
               );
             })}
+            <button onClick={() => this.handleCheckout()}>Checkout</button>
           </div>
         );
       } else renderedDiv = <div>Cart is Empty!</div>;
@@ -95,7 +135,9 @@ class Cart extends React.Component {
             {this.state.guestCartArray.map((cartItem) => {
               return (
                 <div key={cartItem.productId}>
-                  <h3>{cartItem.name}</h3>
+                  <Link to={`/products/${cartItem.productId}`}>
+                    <h3>{cartItem.name}</h3>
+                  </Link>
                   <img src={cartItem.image} height="150px" width="150px" />
                   <ul>Product Id: {cartItem.productId}</ul>
                   <ul>Quantity: {cartItem.quantity}</ul>
@@ -105,13 +147,38 @@ class Cart extends React.Component {
                   >
                     Delete Item
                   </button>
+                  <button
+                    onClick={() =>
+                      this.handleGuestChangeQty(cartItem.productId, "increase")
+                    }
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() =>
+                      this.handleGuestChangeQty(cartItem.productId, "decrease")
+                    }
+                  >
+                    -
+                  </button>
                 </div>
               );
             })}
           </div>
         );
       } else {
-        renderedDiv = <div>cart is empty</div>;
+        renderedDiv = (
+          <div>
+            <br></br>
+            <br></br>
+            <h2>
+              Your Guest Cart is empty! Take a look at all of our luxurious{" "}
+              <Link to="/products">Products</Link> !
+            </h2>
+            <br></br>
+            <br></br>
+          </div>
+        );
       }
     }
 
@@ -133,6 +200,7 @@ const mapDispatch = (dispatch) => {
       dispatch(deleteFromCart(userId, itemId)),
     editCartItem: (userId, cartItem) =>
       dispatch(editCartItem(userId, cartItem)),
+    updateCart: (id) => dispatch(updateCart(id)),
   };
 };
 
