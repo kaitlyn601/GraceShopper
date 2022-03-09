@@ -465,6 +465,12 @@ form div {
   padding: 5px 0px;
   width: 37%;
 }
+.delete-item-btn:hover {
+  background: #5c1a7c;
+  transition-delay: 0.25s;
+  transition: background 0.2s ease 0s;
+  cursor: pointer;
+}
 .table-att {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
