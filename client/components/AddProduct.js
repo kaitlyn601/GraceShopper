@@ -11,7 +11,8 @@ class AddProduct extends React.Component {
       price: 0.0,
       quantity: 1,
       description: "",
-      imageURL: "",
+      imageURL:
+        "https://cdn.shopify.com/s/files/1/0012/8660/2848/products/Smoke-Salt-new-packaging_300x300.jpg?v=1578593451",
     };
   }
   handleChange(e) {
