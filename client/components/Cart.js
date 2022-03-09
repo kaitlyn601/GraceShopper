@@ -84,52 +84,102 @@ class Cart extends React.Component {
     if (userId) {
       if (cart.length) {
         renderedDiv = (
-          <div>
-            {cart.map((cartItem) => {
-              this.state.total = cartItem.price * cartItem.quantity;
-              return (
-                <div key={cartItem.id}>
-                  <h3>{cartItem.name}</h3>
-                  <Link to={`/products/${cartItem.productId}`}>
-                    <img src={cartItem.imageURL} height="150px" width="150px" />
-                  </Link>
-                  <ul>Quantity: {cartItem.quantity}</ul>
-                  <ul>Price: ${cartItem.price / 100}</ul>
-                  <button
-                    onClick={() => {
-                      this.props.deleteFromCart(userId, cartItem.id);
-                    }}
-                  >
-                    Delete Item
-                  </button>
-                  <button
-                    onClick={() => {
-                      cartItem.quantity++;
-                      this.props.editCartItem(userId, cartItem);
-                    }}
-                  >
-                    +
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (cartItem.quantity > 1) {
-                        cartItem.quantity--;
-                        this.props.editCartItem(userId, cartItem);
-                      } else {
-                        this.props.deleteFromCart(userId, cartItem.id);
-                      }
-                    }}
-                  >
-                    -
-                  </button>
+          <div className="cart-container">
+            <div className="item-box">
+              <div className="table-att">
+                <div></div>
+                <div>
+                  <p>Product</p>
                 </div>
-              );
-            })}
-            <h3>Total: ${this.state.total / 100}</h3>
+                <div className="center-div">
+                  <p>Quantity</p>
+                </div>
+                <div className="center-div">
+                  <p>Price</p>
+                </div>
+              </div>
 
-            <Link to="/confirmation">
-              <button onClick={() => this.handleCheckout()}>Checkout</button>
-            </Link>
+              {cart.map((cartItem) => {
+                this.state.total = cartItem.price * cartItem.quantity;
+                return (
+                  <div className="item" key={cartItem.id}>
+                    <Link to={`/products/${cartItem.productId}`}>
+                      <img
+                        src={cartItem.imageURL}
+                        height="150px"
+                        width="150px"
+                      />
+                    </Link>
+                    <div className="name-rm-btn">
+                      <h4>{cartItem.name}</h4>
+                      <button
+                        className="delete-item-btn"
+                        onClick={() => {
+                          this.props.deleteFromCart(userId, cartItem.id);
+                        }}
+                      >
+                        Delete Item
+                      </button>
+                    </div>
+                    <div className="cart-qty">
+                      <button
+                        className="decre-cart"
+                        onClick={() => {
+                          if (cartItem.quantity > 1) {
+                            cartItem.quantity--;
+                            this.props.editCartItem(userId, cartItem);
+                          } else {
+                            this.props.deleteFromCart(userId, cartItem.id);
+                          }
+                        }}
+                      >
+                        -
+                      </button>
+                      <p className="quantity-cart">{cartItem.quantity}</p>
+                      <button
+                        className="incre-cart"
+                        onClick={() => {
+                          cartItem.quantity++;
+                          this.props.editCartItem(userId, cartItem);
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div className="price-container">
+                      <p> ${cartItem.price / 100}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="checkout">
+              <div className="checkout-info">
+                <h3>Subtotal</h3> <h3> {this.state.total / 100}</h3>
+              </div>
+              <div className="checkout-info">
+                <h3>Shipping</h3>
+                <h3>Free</h3>
+              </div>
+              <div className="checkout-info">
+                <h3>Taxes</h3>
+                <h3>${((this.state.total / 100) * 0.08875).toFixed(2)}</h3>
+              </div>
+              <div className="checkout-info">
+                <h3>TOTAL</h3>
+                <h3>${((this.state.total / 100) * 1.08875).toFixed(2)}</h3>
+              </div>
+
+              <Link to="/confirmation">
+                <button
+                  className="checkout-btn"
+                  onClick={() => this.handleCheckout()}
+                >
+                  CHECK OUT
+                </button>
+              </Link>
+            </div>
           </div>
         );
       } else
@@ -199,7 +249,7 @@ class Cart extends React.Component {
         );
       } else {
         renderedDiv = (
-          <div>
+          <div className="empty-cart">
             <br></br>
             <br></br>
             <h2>
