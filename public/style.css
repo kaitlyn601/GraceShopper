@@ -360,6 +360,9 @@ form div {
 }
 .addtobag-btn2:hover {
   cursor: pointer;
+  background: #5c1a7c;
+  transition-delay: 0.25s;
+  transition: background 0.2s ease 0s;
 }
 .addtobag-btn2:active {
   transform: translateY(1px);
