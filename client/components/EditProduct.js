@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { editProductThunk } from "../store/allProducts";
+import React from 'react';
+import { connect } from 'react-redux';
+import { editProductThunk } from '../store/allProducts';
 
 export class EditProject extends React.Component {
   constructor(props) {
@@ -28,51 +28,51 @@ export class EditProject extends React.Component {
   render() {
     const { currentProduct: product } = this.props;
     return (
-      <div>
-        <h1>Edit This Product "{product.name}":</h1>
-        <form id="edit-product-form" onSubmit={(e) => this.handleSubmit(e)}>
-          <label htmlFor="name"> Name: </label>
+      <div className='edit-form-container'>
+        <h1>Edit This Product</h1>
+        <form id='edit-product-form' onSubmit={(e) => this.handleSubmit(e)}>
+          <label htmlFor='name'> Name: </label>
           <input
-            name="name"
+            name='name'
             value={this.state.name}
             onChange={(e) => this.handleChange(e)}
           />
-          <label htmlFor="type"> Product Type: </label>
+          <label htmlFor='type'> Product Type: </label>
           <input
-            type="text"
-            name="type"
+            type='text'
+            name='type'
             onChange={(e) => this.handleChange(e)}
             value={this.state.type}
           />
-          <label htmlFor="price"> Price: </label>
+          <label htmlFor='price'> Price: </label>
           <input
-            type="text"
-            name="price"
+            type='text'
+            name='price'
             onChange={(e) => this.handleChange(e)}
             value={this.state.price}
           />
-          <label htmlFor="name"> Quantity: </label>
+          <label htmlFor='name'> Quantity: </label>
           <input
-            type="text"
-            name="quantity"
+            type='text'
+            name='quantity'
             onChange={(e) => this.handleChange(e)}
             value={this.state.quantity}
           />
-          <label htmlFor="name"> Description: </label>
+          <label htmlFor='name'> Description: </label>
           <input
-            type="text"
-            name="description"
+            type='text'
+            name='description'
             onChange={(e) => this.handleChange(e)}
             value={this.state.description}
           />
-          <label htmlFor="name"> imageURL: </label>
+          <label htmlFor='name'> imageURL: </label>
           <input
-            type="text"
-            name="imageURL"
+            type='text'
+            name='imageURL'
             onChange={(e) => this.handleChange(e)}
             value={this.state.imageURL}
           />
-          <input type="submit" value="Edit Product" />
+          <input type='submit' value='Edit Product' />
         </form>
       </div>
     );

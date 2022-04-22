@@ -1,15 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import AddProduct from "./AddProduct";
-import { Link } from "react-router-dom";
-import { getProducts, deleteProduct } from "../store/allProducts";
+import React from 'react';
+import { connect } from 'react-redux';
+import AddProduct from './AddProduct';
+import { Link } from 'react-router-dom';
+import { getProducts, deleteProduct } from '../store/allProducts';
 
 class AllProducts extends React.Component {
   constructor() {
     super();
     this.state = {
-      filter: "all",
-      sort: "none",
+      filter: 'all',
+      sort: 'none',
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -35,46 +35,46 @@ class AllProducts extends React.Component {
 
     //---Sort Products
     switch (this.state.sort) {
-      case "priceDescending":
+      case 'priceDescending':
         products = products.sort((p1, p2) => {
           return p2.price - p1.price;
         });
         break;
-      case "priceAscending":
+      case 'priceAscending':
         products = products.sort((p1, p2) => {
           return p1.price - p2.price;
         });
         break;
-      case "alpha":
+      case 'alpha':
         products = products.sort((p1, p2) => {
           return p1.name.localeCompare(p2.name);
         });
         break;
-      case "alphaReverse":
+      case 'alphaReverse':
         products = products.sort((p1, p2) => {
           return p2.name.localeCompare(p1.name);
         });
         break;
-      case "none":
+      case 'none':
       default:
         products = this.props.products;
     }
 
     //---Filter Products
     switch (this.state.filter) {
-      case "milk":
-        products = products.filter((product) => product.type === "milk");
+      case 'milk':
+        products = products.filter((product) => product.type === 'milk');
         break;
-      case "dark":
-        products = products.filter((product) => product.type === "dark");
+      case 'dark':
+        products = products.filter((product) => product.type === 'dark');
         break;
-      case "exotic":
-        products = products.filter((product) => product.type === "exotic");
+      case 'exotic':
+        products = products.filter((product) => product.type === 'exotic');
         break;
-      case "assorted":
-        products = products.filter((product) => product.type === "assorted");
+      case 'assorted':
+        products = products.filter((product) => product.type === 'assorted');
         break;
-      case "all":
+      case 'all':
       default:
         products = this.props.products;
     }
@@ -85,14 +85,14 @@ class AllProducts extends React.Component {
       // for SingleView of that product
       // example: <Link to='/product/:id' >{product.name}< /Link>
       // <Route path='/product/:id' component={SingleProduct} />
-      <div className="products">
-        <div className="product-header">
+      <div className='products'>
+        <div className='product-header'>
           <img
-            className="header-img"
-            src="https://m.media-amazon.com/images/S/abs-image-upload-na/1/AmazonStores/ATVPDKIKX0DER/a172a51d6db4f3bbfae74a87c7ab0efb.w3542.h1447._CR0%2C458%2C3542%2C708_SX1500_.jpg"
+            className='header-img'
+            src='https://m.media-amazon.com/images/S/abs-image-upload-na/1/AmazonStores/ATVPDKIKX0DER/a172a51d6db4f3bbfae74a87c7ab0efb.w3542.h1447._CR0%2C458%2C3542%2C708_SX1500_.jpg'
           />
-          <h3 className="header-text">Gourmet Chocolate</h3>
-          <p className="text">
+          <h3 className='header-text'>Gourmet Chocolate</h3>
+          <p className='text'>
             Chocolate lovers around the world who have a strong sweet tooth can
             agree that if you're looking for a healthy, satisfying, and
             irresistible candy, then indulging in a few pieces of cacao nibs,
@@ -105,71 +105,74 @@ class AllProducts extends React.Component {
           </p>
         </div>
 
-        <div className="filter-container">
-          <div className="filter-box">
-            <div className="filter">
-              <label className="label" htmlFor="filter">
-                Filter By:{" "}
+        <div className='filter-container'>
+          <div className='filter-box'>
+            <div className='filter'>
+              <label className='label' htmlFor='filter'>
+                Filter By:{' '}
               </label>
               <select
-                name="filter"
+                name='filter'
                 value={this.state.filter}
                 onChange={(e) => this.handleChange(e)}
               >
-                <option value="all">All</option>
-                <option value="milk">Milk Chocolate</option>
-                <option value="dark">Dark Chocolate</option>
-                <option value="exotic">Exotic Chocolate</option>
-                <option value="assorted">Assorted Chocolate</option>
+                <option value='all'>All</option>
+                <option value='milk'>Milk Chocolate</option>
+                <option value='dark'>Dark Chocolate</option>
+                <option value='exotic'>Exotic Chocolate</option>
+                <option value='assorted'>Assorted Chocolate</option>
               </select>
             </div>
 
-            <div className="sort">
-              <label className="label" htmlFor="sort">
-                Sort By:{" "}
+            <div className='sort'>
+              <label className='label' htmlFor='sort'>
+                Sort By:{' '}
               </label>
               <select
-                className="sort"
-                aria-label="Default select example"
-                name="sort"
+                className='sort'
+                aria-label='Default select example'
+                name='sort'
                 onChange={(e) => this.handleChange(e)}
               >
-                <option value="none">None</option>
-                <option value="alpha">A-Z</option>
-                <option value="alphaReverse">Z-A</option>
-                <option value="priceAscending">Price (Low - High)</option>
-                <option value="priceDescending">Price (High - Low)</option>
+                <option value='none'>None</option>
+                <option value='alpha'>A-Z</option>
+                <option value='alphaReverse'>Z-A</option>
+                <option value='priceAscending'>Price (Low - High)</option>
+                <option value='priceDescending'>Price (High - Low)</option>
               </select>
             </div>
           </div>
         </div>
 
-        <div className="products-container">
-          <div className="grid-container">
+        <div className='products-container'>
+          <div className='grid-container'>
             {/* if user type is Admin, then also render a Delete button for each product : */}
             {products.map((product) => {
               return (
-                <div className="product-container" key={product.id}>
+                <div className='product-container' key={product.id}>
                   <Link to={`/products/${product.id}`}>
-                    <img className="product-img" src={product.imageURL} />
-                    <h4 className="product-name">{product.name}</h4>
-                    <p className="price"> $ {product.price / 100}</p>
+                    <img className='product-img' src={product.imageURL} />
+                    <h4 className='product-name'>{product.name}</h4>
+                    <p className='price'> $ {product.price / 100}</p>
                   </Link>
                   <button
-                    type="button"
+                    type='button'
                     onClick={this.handleAddToCart}
-                    className="addtobag-btn"
+                    className='addtobag-btn'
                   >
                     Add to bag
                   </button>
 
                   {this.props.isAdmin ? (
-                    <button
-                      type="button"
-                      onClick={() => this.handleDelete(product.id)}
-                    >
-                      Delete
-                    </button>
+                    <div className='delete-btn-container'>
+                      <button
+                        className='delete-btn'
+                        type='button'
+                        onClick={() => this.handleDelete(product.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   ) : (
                     <div></div>
                   )}
