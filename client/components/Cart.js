@@ -194,53 +194,97 @@ class Cart extends React.Component {
     } else {
       if (this.state.guestCartArray.length) {
         renderedDiv = (
-          <div>
-            <h1>Guest Cart</h1>
-            <br></br>
-            <br></br>
-
-            {this.state.guestCartArray.map((cartItem) => {
-              this.state.total = cartItem.price * cartItem.quantity;
-              return (
-                <div key={cartItem.productId}>
-                  <br></br>
-                  <Link to={`/products/${cartItem.productId}`}>
-                    <h3>{cartItem.name}</h3>
-                  </Link>
-                  <img src={cartItem.image} height='150px' width='150px' />
-                  <ul>Product Id: {cartItem.productId}</ul>
-                  <ul>Quantity: {cartItem.quantity}</ul>
-                  <ul>Price: ${cartItem.price / 100}</ul>
-                  <button
-                    onClick={() => this.handleGuestDelete(cartItem.productId)}
-                  >
-                    Delete Item
-                  </button>
-                  <button
-                    onClick={() =>
-                      this.handleGuestChangeQty(cartItem.productId, 'increase')
-                    }
-                  >
-                    +
-                  </button>
-                  <button
-                    onClick={() =>
-                      this.handleGuestChangeQty(cartItem.productId, 'decrease')
-                    }
-                  >
-                    -
-                  </button>
-                  <br></br>
-                  <br></br>
+          <div className='cart-container'>
+            <div className='item-box'>
+              <div className='table-att'>
+                <div></div>
+                <div>
+                  <p>Product</p>
                 </div>
-              );
-            })}
+                <div className='center-div'>
+                  <p>Quantity</p>
+                </div>
+                <div className='center-div'>
+                  <p>Price</p>
+                </div>
+              </div>
+              {this.state.guestCartArray.map((cartItem) => {
+                this.state.total = cartItem.price * cartItem.quantity;
+                return (
+                  <div className='item' key={cartItem.productId}>
+                    <Link to={`/products/${cartItem.productId}`}>
+                      <img src={cartItem.image} height='150px' width='150px' />
+                    </Link>
+                    <div className='name-rm-btn'>
+                      <h4>{cartItem.name}</h4>
+                      <button
+                        className='delete-item-btn'
+                        onClick={() => {
+                          this.handleGuestDelete(cartItem.productId);
+                        }}
+                      >
+                        Delete Item
+                      </button>
+                    </div>
 
-            <Link to='/confirmation'>
-              <button onClick={() => this.handleCheckout()}>Checkout</button>
-            </Link>
+                    <div className='cart-qty'>
+                      <button
+                        className='decre-cart'
+                        onClick={() =>
+                          this.handleGuestChangeQty(
+                            cartItem.productId,
+                            'decrease',
+                          )
+                        }
+                      >
+                        -
+                      </button>
+                      <p className='quantity-cart'>{cartItem.quantity}</p>
+                      <button
+                        className='incre-cart'
+                        onClick={() =>
+                          this.handleGuestChangeQty(
+                            cartItem.productId,
+                            'increase',
+                          )
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div className='price-container'>
+                      <p> ${cartItem.price / 100}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className='checkout'>
+              <div className='checkout-info'>
+                <h3>Subtotal</h3> <h3> {this.state.total / 100}</h3>
+              </div>
+              <div className='checkout-info'>
+                <h3>Shipping</h3>
+                <h3>Free</h3>
+              </div>
+              <div className='checkout-info'>
+                <h3>Taxes</h3>
+                <h3>${((this.state.total / 100) * 0.08875).toFixed(2)}</h3>
+              </div>
+              <div className='checkout-info'>
+                <h3>TOTAL</h3>
+                <h3>${((this.state.total / 100) * 1.08875).toFixed(2)}</h3>
+              </div>
 
-            <h3>Total: ${this.state.total / 100}</h3>
+              <Link to='/confirmation'>
+                <button
+                  className='checkout-btn'
+                  onClick={() => this.handleCheckout()}
+                >
+                  GUEST CHECK OUT
+                </button>
+              </Link>
+            </div>
           </div>
         );
       } else {

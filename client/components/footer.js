@@ -134,9 +134,6 @@ export const Footer = () => {
                 Privacy & terms
               </a>
             </li>
-            <li>
-              <SocialIcon url='https://github.com/TotodileTamers/GraceShopper' />
-            </li>
           </ul>
         </nav>
       </div>

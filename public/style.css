@@ -70,12 +70,13 @@ form div {
 /* Home */
 .home-header {
   position: relative;
-}
-.welcome {
-  text-align: end;
+  padding-top: 10px;
 }
 .home-img {
   width: 100%;
+}
+.welcome {
+  color: #3a0e4d;
 }
 .text-box {
   position: absolute;
@@ -410,6 +411,7 @@ form div {
   display: flex;
   padding: 40px;
   min-height: 60vh;
+  align-items: flex-start;
 }
 .item-box {
   display: flex;
@@ -432,9 +434,12 @@ form div {
   height: 100%;
 }
 .checkout {
-  width: 27%;
+  width: 30%;
   padding: 20px 30px;
-  background: #f9f9f9;
+  background: #f7f7f7;
+  border-top: 3px solid #3d1152;
+  border-bottom: 3px solid #3d1152;
+  padding: 50px 40px 40px;
 }
 .cart-qty {
   display: flex;
@@ -553,8 +558,8 @@ form div {
 }
 
 .social-icon {
-  height: 2.4rem;
-  width: 2.4rem;
+  height: 50px;
+  width: 50px;
 }
 
 .copyright {
@@ -622,4 +627,23 @@ th,
 tr {
   padding: 10px;
   text-align: center;
+}
+
+/* Confirmation Page */
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  background-color: #ece8f0;
+}
+.confirmation h2 {
+  margin-bottom: 30px;
+  color: #310a42;
+  font-size: 28px;
+  letter-spacing: 1.15px;
+}
+.confirmation img {
+  height: 450px;
 }
