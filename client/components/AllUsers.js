@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { getUsers } from "../store/allUser";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getUsers } from '../store/allUser';
 
 class AllUsers extends React.Component {
   componentDidMount() {
@@ -11,38 +11,29 @@ class AllUsers extends React.Component {
   render() {
     const { users } = this.props;
     return (
-      <div id="admin-portal-all-users">
-        <br></br>
-        <h1>ADMIN PORTAL</h1>
-        <br></br>
-        <br></br>
-        <h1>All Users</h1>
-        <br></br>
-        <br></br>
+      <div className='admin-portal-all-users'>
+        <h2>ADMIN PORTAL</h2>
+
         {this.props.users.length < 1 ? (
-          "There are currently no users"
+          'There are currently no users'
         ) : (
           <table>
-            <tbody>
+            <thead>
               <tr>
-                <th>
-                  <h1>Username </h1>
-                </th>
-                <th>
-                  <h1>Type</h1>
-                </th>
+                <th>Username</th>
+                <th>Type</th>
               </tr>
+            </thead>
+            <tbody>
               {users.map((user) => {
                 return (
                   <tr key={user.id}>
                     <td>
-                      <Link to={`/users/${user.id}`}>
-                        <h2>{user.username}</h2>
+                      <Link className='username' to={`/users/${user.id}`}>
+                        {user.username}
                       </Link>
                     </td>
-                    <td>
-                      <h2>{user.isAdmin ? "Admin" : "User"}</h2>
-                    </td>
+                    <td>{user.isAdmin ? 'Admin' : 'User'}</td>
                   </tr>
                 );
               })}

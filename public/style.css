@@ -607,28 +607,60 @@ form div {
 }
 
 /* Tables for Admin */
-#admin-portal-all-users,
-#admin-portal-one-user {
+.admin-portal-all-users,
+.admin-portal-one-user {
   display: flex;
   flex-direction: column;
-  background-color: rgba(247, 244, 240, 0.872);
   align-items: center;
   width: 100%;
+  padding: 50px 10px;
+  min-height: 60vh;
+}
+.admin-portal-all-users h2 {
+  font-size: 32px;
 }
 
 table {
-  padding: 10px;
-  font-family: 'Rubik', sans-serif;
-  border: solid;
-  margin: 20px 20px 80px 20px;
+  width: 700px;
+  margin-top: 30px;
+  font-size: 18px;
+  /* border: 1px solid #343a40; */
+  border-collapse: collapse;
 }
 
 th,
-tr {
-  padding: 10px;
-  text-align: center;
+td {
+  /* border: 1px solid #343a40; */
+  padding: 16px 24px;
+  text-align: left;
 }
 
+thead tr {
+  background-color: #b7a2cd;
+  color: #fff;
+  font-size: 24px;
+}
+
+thead th {
+  width: 25%;
+}
+tbody td {
+  font-size: 20px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #e9ecef;
+}
+.username:link,
+.username:visited {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+}
 /* Confirmation Page */
 .confirmation {
   display: flex;
