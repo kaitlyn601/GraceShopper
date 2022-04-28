@@ -289,7 +289,16 @@ class Cart extends React.Component {
             </div>
             <div className='checkout'>
               <div className='checkout-info'>
-                <h3>Subtotal</h3> <h3> {this.state.total / 100}</h3>
+                <h3>Subtotal</h3>{' '}
+                <h3>
+                  {' '}
+                  $
+                  {(
+                    this.state.guestCartArray.reduce((acc, product) => {
+                      return (acc += product.price * product.quantity);
+                    }, 0) / 100
+                  ).toFixed(2)}
+                </h3>
               </div>
               <div className='checkout-info'>
                 <h3>Shipping</h3>
@@ -297,11 +306,31 @@ class Cart extends React.Component {
               </div>
               <div className='checkout-info'>
                 <h3>Taxes</h3>
-                <h3>${((this.state.total / 100) * 0.08875).toFixed(2)}</h3>
+                <h3>
+                  {' '}
+                  $
+                  {(
+                    (this.state.guestCartArray.reduce((acc, product) => {
+                      return (acc += product.price * product.quantity);
+                    }, 0) /
+                      100) *
+                    0.08875
+                  ).toFixed(2)}
+                </h3>
               </div>
               <div className='checkout-info'>
                 <h3>TOTAL</h3>
-                <h3>${((this.state.total / 100) * 1.08875).toFixed(2)}</h3>
+                <h3>
+                  {' '}
+                  $
+                  {(
+                    (this.state.guestCartArray.reduce((acc, product) => {
+                      return (acc += product.price * product.quantity);
+                    }, 0) /
+                      100) *
+                    1.08875
+                  ).toFixed(2)}
+                </h3>
               </div>
 
               <Link to='/confirmation'>
