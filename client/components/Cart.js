@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 class Cart extends React.Component {
   constructor() {
     super();
-    this.state = { guestCartArray: [], total: 0 };
+    this.state = { guestCartArray: [] };
     this.handleGuestDelete = this.handleGuestDelete.bind(this);
     this.handleCheckout = this.handleCheckout.bind(this);
     this.handleGuestChangeQty = this.handleGuestChangeQty.bind(this);
@@ -81,8 +81,10 @@ class Cart extends React.Component {
   render() {
     let renderedDiv;
     const { cart, userId } = this.props;
+
     if (userId) {
       if (cart.length) {
+        console.log('cart', cart);
         renderedDiv = (
           <div className='cart-container'>
             <div className='item-box'>
@@ -100,7 +102,7 @@ class Cart extends React.Component {
               </div>
 
               {cart.map((cartItem) => {
-                this.state.total = cartItem.price * cartItem.quantity;
+                /*  this.state.total = cartItem.price * cartItem.quantity; */
                 return (
                   <div className='item' key={cartItem.id}>
                     <Link to={`/products/${cartItem.productId}`}>
@@ -156,7 +158,15 @@ class Cart extends React.Component {
 
             <div className='checkout'>
               <div className='checkout-info'>
-                <h3>Subtotal</h3> <h3> {this.state.total / 100}</h3>
+                <h3>Subtotal</h3>
+                <h3>
+                  $
+                  {(
+                    cart.reduce((acc, product) => {
+                      return (acc += product.price * product.quantity);
+                    }, 0) / 100
+                  ).toFixed(2)}
+                </h3>
               </div>
               <div className='checkout-info'>
                 <h3>Shipping</h3>
@@ -164,11 +174,29 @@ class Cart extends React.Component {
               </div>
               <div className='checkout-info'>
                 <h3>Taxes</h3>
-                <h3>${((this.state.total / 100) * 0.08875).toFixed(2)}</h3>
+                <h3>
+                  $
+                  {(
+                    (cart.reduce((acc, product) => {
+                      return (acc += product.price * product.quantity);
+                    }, 0) /
+                      100) *
+                    0.08875
+                  ).toFixed(2)}
+                </h3>
               </div>
               <div className='checkout-info'>
                 <h3>TOTAL</h3>
-                <h3>${((this.state.total / 100) * 1.08875).toFixed(2)}</h3>
+                <h3>
+                  $
+                  {(
+                    (cart.reduce((acc, product) => {
+                      return (acc += product.price * product.quantity);
+                    }, 0) /
+                      100) *
+                    1.08875
+                  ).toFixed(2)}
+                </h3>
               </div>
 
               <Link to='/confirmation'>
