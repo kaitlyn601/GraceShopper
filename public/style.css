@@ -27,6 +27,12 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
 /* Header */
 
 .header {
@@ -412,10 +418,12 @@ form div {
 }
 /* Cart */
 .cart-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 70fr 30fr;
   padding: 40px;
   min-height: 60vh;
   align-items: flex-start;
+  gap: 30px;
 }
 .item-box {
   display: flex;
@@ -438,7 +446,7 @@ form div {
   height: 100%;
 }
 .checkout {
-  width: 30%;
+  width: 100%;
   padding: 20px 30px;
   background: #f7f7f7;
   border-top: 3px solid #3d1152;

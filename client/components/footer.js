@@ -34,7 +34,7 @@ export const Footer = () => {
             <li>
               <a
                 className='footer-link'
-                href='https://github.com/TotodileTamers/GraceShopper'
+                href='https://github.com/kaitlyn601/GraceShopper'
               >
                 <ion-icon className='social-icon' name='logo-github'></ion-icon>
               </a>
