@@ -7,7 +7,7 @@ import {
   editCartItem,
   updateCart,
 } from '../store/cart';
-
+import toast, { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
 class Cart extends React.Component {
@@ -57,6 +57,7 @@ class Cart extends React.Component {
     // and update the localStorage
     let stringifiedCartArray = JSON.stringify(guestCartArray);
     window.localStorage.setItem('cart', stringifiedCartArray);
+    toast.success('Removed from cart');
   }
 
   // ADDED with branch 'feature/top-off-guest-cart'

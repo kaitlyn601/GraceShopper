@@ -4,6 +4,7 @@ import { getProduct } from '../store/product';
 import EditProduct from './EditProduct';
 // added on branch feature/add-to-cart-button :
 import { getCart, addToCart } from '../store/cart';
+import toast, { Toaster } from 'react-hot-toast';
 
 class SingleProduct extends React.Component {
   constructor(props) {
@@ -46,7 +47,6 @@ class SingleProduct extends React.Component {
         imageURL: product.imageURL,
       };
       addToCart(userId, cartItem);
-      /* toast.success('Successfully toasted!'); */
     } else {
       // USE LOCAL STORAGE
       let orderItemObj = {
@@ -61,6 +61,7 @@ class SingleProduct extends React.Component {
       let guestCartArray;
 
       let guestCart = window.localStorage.getItem('cart');
+      toast.success('Added to cart successfully!');
       if (guestCart) {
         console.log('we do have a cart', guestCart);
         guestCartArray = JSON.parse(guestCart);
