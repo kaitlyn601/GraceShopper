@@ -1,10 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+
 // ACTION CONSTANTS
-const TOKEN = "token";
-const GET_CART = "GET_CART";
-const ADD_TO_CART = "ADD_TO_CART";
-const DELETE_FROM_CART = "DELETE_FROM_CART";
-const EDIT_CART_ITEM = "EDIT_CART_ITEM";
+const TOKEN = 'token';
+const GET_CART = 'GET_CART';
+const ADD_TO_CART = 'ADD_TO_CART';
+const DELETE_FROM_CART = 'DELETE_FROM_CART';
+const EDIT_CART_ITEM = 'EDIT_CART_ITEM';
 
 // ACTION CREATORS
 export const _getCart = (cart) => {
@@ -57,11 +59,13 @@ export const addToCart = (id, cartItem) => {
     try {
       const { data: newCartItem } = await axios.post(
         `/api/users/${id}/cart`,
-        cartItem
+        cartItem,
       );
       dispatch(_addToCart(newCartItem));
+      toast.success('Added to cart successfully!');
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 };
@@ -70,9 +74,10 @@ export const deleteFromCart = (userId, itemId) => {
   return async (dispatch) => {
     try {
       const { data: cartItem } = await axios.delete(
-        `/api/users/${userId}/cart/${itemId}`
+        `/api/users/${userId}/cart/${itemId}`,
       );
       dispatch(_deleteFromCart(cartItem));
+      toast.success('Deleted from cart');
     } catch (error) {
       console.log(error);
     }
@@ -92,7 +97,7 @@ export const editCartItem = (userId, cartItem) => {
     try {
       const { data: updatedCartItem } = await axios.put(
         `/api/users/${userId}/cart/${cartItem.id}`,
-        cartItem
+        cartItem,
       );
       dispatch(_editCartItem(updatedCartItem));
     } catch (error) {
@@ -112,7 +117,7 @@ const cartReducer = (state = [], action) => {
       return state.filter((cartItem) => cartItem.id !== action.cartItem.id);
     case EDIT_CART_ITEM:
       return state.map((cartItem) =>
-        cartItem.id === action.cartItem.id ? action.cartItem : cartItem
+        cartItem.id === action.cartItem.id ? action.cartItem : cartItem,
       );
     default:
       return state;

@@ -1,11 +1,12 @@
-import axios from "axios";
-import { getProduct } from "./product";
+import axios from 'axios';
+import { getProduct } from './product';
+import toast, { Toaster } from 'react-hot-toast';
 //---------ACTION CONSTANT
-const GET_PRODUCTS = "GET_PRODUCTS";
-const EDIT_PRODUCT = "EDIT_PRODUCTS";
-const ADD_PRODUCT = "ADD_PRODUCT";
-const DELETED_PRODUCT = "DELETED_PRODUCT";
-const TOKEN = "token";
+const GET_PRODUCTS = 'GET_PRODUCTS';
+const EDIT_PRODUCT = 'EDIT_PRODUCTS';
+const ADD_PRODUCT = 'ADD_PRODUCT';
+const DELETED_PRODUCT = 'DELETED_PRODUCT';
+const TOKEN = 'token';
 
 //---------ACTION CREATORS
 const _getProducts = (products) => {
@@ -35,7 +36,7 @@ const _deletedProduct = (product) => {
 export const getProducts = () => {
   return async (dispatch) => {
     try {
-      const { data: products } = await axios.get("/api/products");
+      const { data: products } = await axios.get('/api/products');
       dispatch(_getProducts(products));
     } catch (error) {
       console.log(error);
@@ -44,31 +45,43 @@ export const getProducts = () => {
 };
 
 export const addProductThunk = (product) => async (dispatch) => {
-  const token = window.localStorage.getItem(TOKEN);
-  const { data: created } = await axios.post("/api/products", product, {
-    headers: {
-      // send it back in req, as header with key
-      authorization: token, // of authorization
-    }, //to use in routes
-  });
-  dispatch(_addProduct(created));
+  try {
+    const token = window.localStorage.getItem(TOKEN);
+    const { data: created } = await axios.post('/api/products', product, {
+      headers: {
+        // send it back in req, as header with key
+        authorization: token, // of authorization
+      }, //to use in routes
+    });
+    dispatch(_addProduct(created));
+    toast.success('Item successfully Added!');
+  } catch (error) {
+    console.log(error);
+    toast.error(error.message);
+  }
 };
 
 export const editProductThunk = (product) => async (dispatch) => {
-  const { data: edit } = await axios.put(
-    `/api/products/${product.id}`,
-    product
-  );
-  dispatch(_editProduct(edit));
-  dispatch(getProduct(product.id));
+  try {
+    const { data: edit } = await axios.put(
+      `/api/products/${product.id}`,
+      product,
+    );
+    dispatch(_editProduct(edit));
+    dispatch(getProduct(product.id));
+    toast.success('Item successfully Updated!');
+  } catch (error) {
+    toast.error(error.message);
+  }
 };
 export const deleteProduct = (productId) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.delete(`/api/products/${productId}`);
       dispatch(_deletedProduct(data));
+      toast.success('Item successfully deleted');
     } catch (error) {
-      console.log("error deleting product from the DB", error);
+      console.log('error deleting product from the DB', error);
     }
   };
 };
@@ -91,7 +104,7 @@ const productsReducer = (state = initialState, action) => {
       });
     case DELETED_PRODUCT: {
       const updatedProducts = state.filter(
-        (product) => product.id !== action.product.id
+        (product) => product.id !== action.product.id,
       );
       return updatedProducts;
     }
