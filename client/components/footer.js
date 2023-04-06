@@ -1,7 +1,7 @@
 import React from 'react';
 import { SocialIcon } from 'react-social-icons';
 
-export const Footer = () => {
+const Footer = () => {
   return (
     <footer className='footer'>
       <div className='container grid--footer'>
@@ -140,3 +140,4 @@ export const Footer = () => {
     </footer>
   );
 };
+export default Footer;
