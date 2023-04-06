@@ -1,15 +1,21 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Login, Signup } from "./components/AuthForm";
-import Home from "./components/Home";
-import { me } from "./store";
-import AllProducts from "./components/AllProducts";
-import SingleProduct from "./components/SingleProduct";
-import Cart from "./components/Cart";
-import SingleUser from "./components/SingleUser";
-import AllUsers from "./components/AllUsers";
-import ConfirmationPage from "./components/ConfirmationPage";
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import {
+  withRouter,
+  Route,
+  Switch,
+  Redirect,
+  ,
+} from 'react-router-dom';
+import { Login, Signup } from './components/AuthForm';
+import Home from './components/Home';
+import { me } from './store';
+import AllProducts from './components/AllProducts';
+import SingleProduct from './components/SingleProduct';
+import Cart from './components/Cart';
+import SingleUser from './components/SingleUser';
+import AllUsers from './components/AllUsers';
+import ConfirmationPage from './components/ConfirmationPage';
 /**
  * COMPONENT
  */
@@ -25,25 +31,25 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route exact path="/products" component={AllProducts} />
-            <Route path="/products/:id" component={SingleProduct} />
-            <Route exact path="/users" component={AllUsers} />
-            <Route path="/users/:id" component={SingleUser} />
-            <Route path="/home" component={Home} />
-            <Route path="/cart" component={Cart} />
-            <Route path="/confirmation" component={ConfirmationPage} />
-            <Redirect to="/home" />
+            <Route exact path='/products' component={AllProducts} />
+            <Route path='/products/:id' component={SingleProduct} />
+            <Route exact path='/users' component={AllUsers} />
+            <Route path='/users/:id' component={SingleUser} />
+            <Route path='/home' component={Home} />
+            <Route path='/cart' component={Cart} />
+            <Route path='/confirmation' component={ConfirmationPage} />
+            <Redirect to='/home' />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/home" component={Home} />
-            <Route exact path="/products" component={AllProducts} />
-            <Route path="/products/:id" component={SingleProduct} />
-            <Route path="/" exact component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/cart" component={Cart} />
-            <Route path="/confirmation" component={ConfirmationPage} />
+            <Route path='/home' component={Home} />
+            <Route exact path='/products' component={AllProducts} />
+            <Route path='/products/:id' component={SingleProduct} />
+            <Route path='/' exact component={Login} />
+            <Route path='/login' component={Login} />
+            <Route path='/signup' component={Signup} />
+            <Route path='/cart' component={Cart} />
+            <Route path='/confirmation' component={ConfirmationPage} />
           </Switch>
         )}
       </div>

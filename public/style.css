@@ -303,9 +303,13 @@ form div {
 .filter {
   padding-right: 15px;
 }
+.product-img {
+  height: 400px;
+  width: 300px;
+}
 .product-name {
   color: black;
-  margin-bottom: 15px;
+  margin: 15px 0;
   width: 330px;
 }
 .price {
