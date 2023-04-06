@@ -3149,7 +3149,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const Footer = () => {
+function Footer() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
     className: "footer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -3253,7 +3253,7 @@ const Footer = () => {
     className: "footer-link",
     href: "#"
   }, "Privacy & terms"))))));
-};
+}
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
 
