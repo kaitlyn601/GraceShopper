@@ -10,13 +10,12 @@ export const Home = (props) => {
 
   return (
     <header className='home-header'>
-      <div>
-        <img
-          className='home-img'
-          alt='home-img'
-          src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/vosges-chocolate-1636570022.png'
-        />
-      </div>
+      <img
+        className='home-img'
+        alt='home-img'
+        src='https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/vosges-chocolate-1636570022.png'
+      />
+
       <div className='text-box'>
         <div className='heading-primary'>
           <span className='heading-primary-main'>15% off</span>

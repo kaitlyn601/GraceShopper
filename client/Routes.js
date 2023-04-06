@@ -22,7 +22,7 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div>
+      <div className='content'>
         {isLoggedIn ? (
           <Switch>
             <Route exact path='/products' component={AllProducts} />
@@ -39,7 +39,7 @@ class Routes extends Component {
             <Route path='/home' component={Home} />
             <Route exact path='/products' component={AllProducts} />
             <Route path='/products/:id' component={SingleProduct} />
-            <Route path='/' exact component={Login} />
+            <Route path='/' exact component={Home} />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             <Route path='/cart' component={Cart} />

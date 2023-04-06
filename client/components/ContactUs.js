@@ -68,12 +68,12 @@ function ContactUs() {
           <p className='footer-heading'>Account</p>
           <ul className='footer-nav'>
             <li>
-              <a className='footer-link' href='#'>
+              <a href='/signup' className='footer-link'>
                 Create account
               </a>
             </li>
             <li>
-              <a className='footer-link' href='#'>
+              <a href='/login' className='footer-link'>
                 Sign in
               </a>
             </li>
@@ -90,8 +90,8 @@ function ContactUs() {
           </ul>
         </nav>
 
-        <nav className='nav-col'>
-          <p className='footer-heading'>Customer Service</p>
+        <nav className='nav-col customer-service'>
+          <p className='footer-heading '>Customer Service</p>
           <ul className='footer-nav'>
             <li>
               <a className='footer-link' href='#'>
@@ -116,7 +116,7 @@ function ContactUs() {
           </ul>
         </nav>
 
-        <nav className='nav-col'>
+        <nav className='nav-col resources'>
           <p className='footer-heading'>Resources</p>
           <ul className='footer-nav'>
             <li>
