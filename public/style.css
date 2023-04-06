@@ -281,6 +281,8 @@ form div {
   margin-left: 20px;
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   grid-gap: 3rem;
+  align-items: center;
+  justify-items: center;
 }
 
 .product-container {
@@ -311,7 +313,6 @@ form div {
 .product-name {
   color: black;
   margin: 15px 0;
-  width: 330px;
 }
 .price {
   color: #3e1152;
@@ -734,6 +735,10 @@ tbody tr:nth-child(even) {
   .signin-form {
     width: 35%;
   }
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-gap: 2rem;
+  }
 }
 @media screen and (max-width: 992px) {
   .signin-form {
@@ -788,6 +793,12 @@ tbody tr:nth-child(even) {
   .btn:visited {
     font-size: 15px;
     padding: 15px 28px;
+  }
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+  .product-container {
+    width: 300px;
   }
 }
 @media screen and (max-width: 650px) {
@@ -855,6 +866,20 @@ tbody tr:nth-child(even) {
     font-size: 12px;
     padding: 12px 22px;
   }
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    grid-gap: 2rem;
+  }
+  .product-container {
+    width: 250px;
+  }
+  .product-img {
+    height: 300px;
+    width: 200px;
+  }
+  .product-name {
+    font-size: smaller;
+  }
 }
 @media screen and (max-width: 425px) {
   .logo-img {
@@ -903,7 +928,35 @@ tbody tr:nth-child(even) {
   .home-img {
     object-fit: cover;
   }
-  .content {
-    height: 100%;
+  .header-img {
+    height: 15vh;
+  }
+  .products {
+    padding: 0 40px;
+  }
+  .header-text {
+    font-size: 16px;
+    padding-top: 25px;
+  }
+  .text {
+    font-size: smaller;
+  }
+  .filter-container {
+    margin-top: 25px;
+    padding-right: 10px;
+  }
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    grid-gap: 1rem;
+  }
+  .product-name {
+    font-size: smaller;
+  }
+  .product-container {
+    width: 150px;
+  }
+  .product-img {
+    height: 180px;
+    width: 120px;
   }
 }
