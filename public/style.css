@@ -819,6 +819,12 @@ tbody tr:nth-child(even) {
   .checkout-btn {
     font-size: 15px;
   }
+  .confirmation {
+    padding: 40px 60px;
+  }
+  .confirmation h2 {
+    font-size: 24px;
+  }
 }
 
 @media screen and (max-width: 650px) {
@@ -987,6 +993,9 @@ tbody tr:nth-child(even) {
   .checkout-btn {
     font-size: 14px;
   }
+  .confirmation {
+    padding: 40px 60px;
+  }
 }
 @media screen and (max-width: 430px) {
   .logo-img {
@@ -1154,6 +1163,16 @@ tbody tr:nth-child(even) {
   }
   .checkout-btn {
     font-size: 14px;
+  }
+
+  .confirmation {
+    padding: 20px;
+  }
+  .confirmation h2 {
+    font-size: 22px;
+  }
+  .confirmation img {
+    height: 300px;
   }
 }
 @media screen and (max-width: 390px) {
